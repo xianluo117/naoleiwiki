@@ -1,28 +1,260 @@
+/**
+ * 类脑社区 - Custom Theme
+ * Style: Cyberpunk / Glassmorphism / Dark Tech
+ */
+
 :root {
-  --vp-c-brand-1: #7c3aed;
-  --vp-c-brand-2: #6d28d9;
-  --vp-c-brand-3: #5b21b6;
-  --vp-c-brand-soft: rgba(124, 58, 237, 0.14);
+  /* 品牌色系 - 更加鲜艳的紫色，带有荧光感 */
+  --vp-c-brand-1: #8b5cf6; /* Violet 500 */
+  --vp-c-brand-2: #7c3aed; /* Violet 600 */
+  --vp-c-brand-3: #6d28d9; /* Violet 700 */
+  --vp-c-brand-soft: rgba(139, 92, 246, 0.16);
+
+  /* 背景色系 - 深邃的蓝紫色调 */
+  --vp-c-bg: #0f0e14;
+  --vp-c-bg-alt: #16161e;
+  --vp-c-bg-soft: #1b1b26;
+
+  /* 强调色 */
+  --vp-custom-accent: #10b981; /* Emerald 500 - 用于点缀 */
+
+  /* 玻璃拟态效果 */
+  --vp-glass-bg: rgba(22, 22, 30, 0.6);
+  --vp-glass-border: rgba(255, 255, 255, 0.08);
+  --vp-glass-blur: 20px;
 }
 
+/* 强制深色模式优化 */
+html.dark {
+  --vp-c-bg: #0b0b0f;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 全局排版与基础样式 */
+/* -------------------------------------------------------------------------- */
+
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
+  background-image:
+    radial-gradient(
+      circle at 15% 50%,
+      rgba(124, 58, 237, 0.08),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 85% 30%,
+      rgba(16, 185, 129, 0.05),
+      transparent 25%
+    );
+  background-attachment: fixed;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--vp-c-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-brand-3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-brand-2);
+}
+
+/* 导航栏 - 玻璃拟态 */
 .VPNavBar {
-  backdrop-filter: saturate(160%) blur(10px);
+  background-color: rgba(11, 11, 15, 0.7) !important;
+  backdrop-filter: blur(var(--vp-glass-blur)) saturate(180%);
+  border-bottom: 1px solid var(--vp-glass-border);
 }
 
-.vp-doc h1,
-.vp-doc h2,
-.vp-doc h3 {
-  letter-spacing: 0.2px;
+/* -------------------------------------------------------------------------- */
+/* 首页 Hero 区域 (Home Hero) */
+/* -------------------------------------------------------------------------- */
+
+/* 标题渐变 */
+.VPHero .name {
+  background: -webkit-linear-gradient(120deg, #a78bfa 30%, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(167, 139, 250, 0.3));
 }
 
+/* 标语 */
+.VPHero .text {
+  color: var(--vp-c-text-2);
+  opacity: 0.9;
+}
+
+/* 按钮样式增强 */
+.VPHero .action .brand {
+  background: linear-gradient(
+    to bottom right,
+    var(--vp-c-brand-1),
+    var(--vp-c-brand-2)
+  );
+  border: none;
+  box-shadow: 0 4px 14px 0 rgba(124, 58, 237, 0.4);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.VPHero .action .brand:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(124, 58, 237, 0.6);
+  background: linear-gradient(
+    to bottom right,
+    var(--vp-c-brand-1),
+    var(--vp-c-brand-1)
+  );
+}
+
+.VPHero .action .alt {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--vp-c-text-1);
+  transition: all 0.2s;
+}
+.VPHero .action .alt:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--vp-c-brand-2);
+}
+
+/* Logo/Image 区域发光效果 */
+.VPHero .image-bg {
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, var(--vp-c-brand-3) 0%, transparent 60%);
+  opacity: 0.2;
+  filter: blur(60px);
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 首页特性卡片 (Features) */
+/* -------------------------------------------------------------------------- */
+
+.VPFeature {
+  background-color: var(--vp-glass-bg) !important;
+  border: 1px solid var(--vp-glass-border) !important;
+  border-radius: 16px !important;
+  transition: all 0.3s ease-out !important;
+  overflow: hidden;
+  position: relative;
+}
+
+.VPFeature:hover {
+  border-color: var(--vp-c-brand-2) !important;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.3);
+  background-color: rgba(124, 58, 237, 0.05) !important;
+}
+
+.VPFeature .icon {
+  background-color: rgba(124, 58, 237, 0.1);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 12px;
+  width: fit-content;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 文档内容区域 (Doc Content) */
+/* -------------------------------------------------------------------------- */
+
+.vp-doc h1 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: -webkit-linear-gradient(120deg, #fff 30%, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.vp-doc h2 {
+  border-bottom: 1px solid var(--vp-glass-border);
+  padding-bottom: 0.3em;
+  margin-top: 2em;
+}
+
+/* 链接样式 */
 .vp-doc a {
-  text-underline-offset: 3px;
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  background: linear-gradient(
+    to right,
+    var(--vp-c-brand-1),
+    var(--vp-c-brand-1)
+  );
+  background-size: 0% 1px;
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s;
+  padding-bottom: 2px;
 }
 
-.vp-doc .custom-block {
-  border-radius: 12px;
+.vp-doc a:hover {
+  background-size: 100% 1px;
+  color: var(--vp-c-brand-1);
 }
 
-.vp-doc ul li {
-  margin: 6px 0;
+/* 引用块 */
+.vp-doc blockquote {
+  background-color: rgba(124, 58, 237, 0.05);
+  border-left: 4px solid var(--vp-c-brand-2);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  color: var(--vp-c-text-2);
+}
+
+/* 代码块 */
+.vp-doc :not(pre) > code {
+  color: #a78bfa;
+  background-color: rgba(124, 58, 237, 0.1);
+  padding: 3px 6px;
+  border-radius: 6px;
+}
+
+/* 提示框 Custom Blocks */
+.custom-block.tip {
+  border-color: var(--vp-c-brand-2);
+  background-color: rgba(124, 58, 237, 0.1);
+}
+.custom-block.warning {
+  border-color: #f59e0b;
+  background-color: rgba(245, 158, 11, 0.1);
+}
+.custom-block.danger {
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 移动端优化 */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .VPHero .name {
+    font-size: 32px;
+    line-height: 1.2;
+  }
 }
