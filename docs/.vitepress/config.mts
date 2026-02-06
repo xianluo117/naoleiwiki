@@ -1,10 +1,11 @@
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
+  base: "/naoleiwiki/",
   title: "类脑社区知识库",
   description: "类脑ΟΔΥΣΣΕΙΑ 社区知识库",
   lang: "zh-CN",
-  cleanUrls: true,
+  cleanUrls: false,
   lastUpdated: true,
   themeConfig: {
     search: {
