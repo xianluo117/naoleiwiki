@@ -6,4 +6,3 @@
 
 - [基础规则](./basic-rules)
 - [子区规则](./subarea-rules)
-
