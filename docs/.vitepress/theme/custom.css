@@ -189,7 +189,22 @@ body {
   font-weight: 500 !important;
 }
 
+/* ======== 左侧侧边栏顶格对齐 ======== */
+.VPSidebar .nav {
+  padding-top: 4px !important;
+}
+
 /* ======== 右侧大纲（本页目录） ======== */
+
+/* 「本页目录」标题 */
+.VPDocAsideOutline .outline-title {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: var(--vp-c-text-1) !important;
+  letter-spacing: 0.3px;
+}
+
+/* 大纲链接 */
 .VPDocAsideOutline .outline-link {
   font-size: 15px !important;
   transition: color 0.15s ease;
@@ -204,6 +219,11 @@ body {
 .VPDocAsideOutline .outline-link.active {
   color: var(--vp-c-brand-1) !important;
   font-weight: 500 !important;
+}
+
+/* 右侧大纲顶格对齐 */
+.VPDocAside .VPDocAsideOutline {
+  padding-top: 0 !important;
 }
 
 /* ======== 首页 Hero ======== */
