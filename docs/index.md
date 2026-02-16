@@ -2,43 +2,21 @@
 layout: home
 
 hero:
-  name: 类脑ΟΔΥΣΣΕΙΑ
-  text: 社区知识库
+  name: ""
+  text: ""
   tagline: SillyTavern 最大中文 Discord 社区 · 面向创作者与技术探索者
   actions:
     - theme: brand
       text: 📋 查看社区规则
       link: /community-rules/
     - theme: alt
-      text: 🚀 快速上手
-      link: /community-rules/basic-rules
-
-features:
-  - icon: 📖
-    title: 规则总览
-    details: 一站式了解社区行为准则，快速融入社区。
-    link: /community-rules/
-  - icon: ✅
-    title: 基础规则
-    details: 合法合规、非商业化、尊重与秩序 —— 社区底线共识。
-    link: /community-rules/basic-rules
-  - icon: 📦
-    title: 子区规则
-    details: 资源发布、版权授权、安全质量与维护规范。
-    link: /community-rules/subarea-rules
-  - icon: ❓
-    title: 酒馆常见问题
-    details: SillyTavern 使用中的常见问题与解决方案汇总。
-    link: /faq/
-  - icon: 🍼
-    title: 新手宝宝教程
-    details: 零基础入门酒馆，手把手教你从安装到开始对话。
-    link: /beginner-guide/
+      text: 🍼 新手教程
+      link: /beginner-guide/
 ---
 
 <div class="home-content">
 
-## 👋 欢迎新朋友
+## 👋 欢迎来到类脑ΟΔΥΣΣΕΙΑ
 
 类脑ΟΔΥΣΣΕΙΑ 是 **SillyTavern（酒馆）最大的中文 Discord 交流社区**，汇聚技术探索者与自由创作者。
 

@@ -18,6 +18,8 @@ export default defineConfig({
   ],
 
   themeConfig: {
+    siteTitle: "类脑ΟΔΥΣΣΕΙΑ · 社区知识库",
+
     search: {
       provider: "local",
       options: {
@@ -54,6 +56,10 @@ export default defineConfig({
     ],
 
     sidebar: [
+      {
+        text: "🏠 首页",
+        items: [{ text: "返回首页", link: "/" }],
+      },
       {
         text: "📋 社区规则",
         collapsed: false,
