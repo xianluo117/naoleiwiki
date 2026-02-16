@@ -36,7 +36,6 @@ export const sections: Section[] = [
     text: "首页",
     icon: "🏠",
     link: "/",
-    items: [{ text: "返回首页", link: "/" }],
   },
   {
     text: "社区规则",
@@ -93,11 +92,12 @@ export function generateSidebar() {
       ? `${section.icon} ${section.sidebarText || section.text}`
       : section.sidebarText || section.text;
 
-    // 无子项 → 直接链接（如首页）
+    // 无子项 → 一级标题 + 可点击跳转（如首页）
     if (!section.items || section.items.length === 0) {
       return {
         text: displayText,
         link: section.link,
+        items: [], // 空数组使其渲染为 level-0 分组标题
       };
     }
 
