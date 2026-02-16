@@ -475,6 +475,32 @@ body {
   background-color: var(--vp-c-bg-soft) !important;
 }
 
+/* PC 端搜索栏加长 */
+@media (min-width: 769px) {
+  .VPNavBarSearchButton.search {
+    width: 320px !important;
+    min-width: 320px !important;
+    border-radius: 8px !important;
+    border: 1px solid var(--vp-c-divider) !important;
+    background-color: var(--vp-c-bg-soft) !important;
+    justify-content: flex-start !important;
+    padding-left: 14px !important;
+  }
+
+  /* local search 按钮容器 */
+  .VPNavBarSearch {
+    padding-left: 16px !important;
+  }
+
+  #local-search {
+    min-width: 320px !important;
+  }
+
+  #local-search button.search-bar {
+    width: 320px !important;
+  }
+}
+
 /* ======== 面包屑/最后更新时间 ======== */
 .VPLastUpdated .prefix {
   color: var(--vp-c-text-3);
