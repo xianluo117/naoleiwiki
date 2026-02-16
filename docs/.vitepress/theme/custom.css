@@ -119,7 +119,7 @@ body {
   background-clip: text;
 }
 
-/* ======== 侧边栏 - 清爽 ======== */
+/* ======== 侧边栏 - 清爽 + 层级缩进 ======== */
 .VPSidebar {
   background-color: var(--vp-c-bg) !important;
   border-right: 1px solid var(--vp-c-divider) !important;
@@ -128,6 +128,44 @@ body {
 .VPSidebar .group + .group {
   border-top: 1px solid var(--vp-c-divider);
   padding-top: 10px;
+}
+
+/* 分组标题样式（level-0）*/
+.VPSidebarItem.level-0 > .item > .text {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--vp-c-text-1);
+  letter-spacing: 0.2px;
+}
+
+/* 子项缩进（level-1）- 在分组标题下首行缩进 */
+.VPSidebarItem.level-0 > .items {
+  padding-left: 8px;
+}
+
+.VPSidebarItem.level-1 > .item {
+  padding-left: 12px;
+  border-left: 1px solid var(--vp-c-divider);
+  margin-left: 4px;
+}
+
+.VPSidebarItem.level-1 > .item > .link {
+  font-size: 13px;
+  color: var(--vp-c-text-2);
+}
+
+.VPSidebarItem.level-1.is-active > .item {
+  border-left-color: var(--vp-c-brand-1);
+}
+
+.VPSidebarItem.level-1.is-active > .item > .link {
+  color: var(--vp-c-brand-1) !important;
+  font-weight: 500;
+}
+
+/* 更深层级缩进（level-2 及以下，预留） */
+.VPSidebarItem.level-2 > .item {
+  padding-left: 24px;
 }
 
 /* 侧边栏链接 */
@@ -139,6 +177,23 @@ body {
 .VPSidebarItem.is-active > .item > .link {
   background-color: var(--vp-c-brand-soft) !important;
   color: var(--vp-c-brand-1) !important;
+  font-weight: 500;
+}
+
+/* ======== 右侧大纲（本页目录）- 层级缩进 ======== */
+.VPDocAsideOutline .outline-link {
+  font-size: 13px;
+  transition: color 0.15s ease;
+}
+
+/* h3 级别大纲缩进 */
+.VPDocAsideOutline .outline-link.nested {
+  padding-left: 16px;
+}
+
+/* 大纲活跃项高亮 */
+.VPDocAsideOutline .outline-link.active {
+  color: var(--vp-c-brand-1);
   font-weight: 500;
 }
 

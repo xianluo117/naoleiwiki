@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import { generateNav, generateSidebar } from "./navigation";
 
 export default defineConfig({
   base: "/naoleiwiki/",
@@ -41,45 +42,9 @@ export default defineConfig({
       },
     },
 
-    nav: [
-      { text: "首页", link: "/" },
-      {
-        text: "社区规则",
-        items: [
-          { text: "规则总览", link: "/community-rules/" },
-          { text: "基础规则", link: "/community-rules/basic-rules" },
-          { text: "子区规则", link: "/community-rules/subarea-rules" },
-        ],
-      },
-      { text: "常见问题", link: "/faq/" },
-      { text: "新手教程", link: "/beginner-guide/" },
-    ],
-
-    sidebar: [
-      {
-        text: "🏠 首页",
-        link: "/",
-      },
-      {
-        text: "📋 社区规则",
-        collapsed: false,
-        items: [
-          { text: "规则总览", link: "/community-rules/" },
-          { text: "基础规则", link: "/community-rules/basic-rules" },
-          { text: "子区规则", link: "/community-rules/subarea-rules" },
-        ],
-      },
-      {
-        text: "❓ 酒馆常见问题",
-        collapsed: false,
-        items: [{ text: "问题总览", link: "/faq/" }],
-      },
-      {
-        text: "🍼 新手宝宝教程",
-        collapsed: false,
-        items: [{ text: "教程总览", link: "/beginner-guide/" }],
-      },
-    ],
+    // ⭐ 从 navigation.ts 统一生成，只需维护一处数据源
+    nav: generateNav(),
+    sidebar: generateSidebar(),
 
     outline: {
       level: [2, 3],
