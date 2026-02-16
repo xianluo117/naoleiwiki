@@ -133,7 +133,7 @@ body {
 /* 分组标题样式（level-0）*/
 .VPSidebarItem.level-0 > .item > .text {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
   color: var(--vp-c-text-1);
   letter-spacing: 0.2px;
 }
@@ -150,7 +150,7 @@ body {
 }
 
 .VPSidebarItem.level-1 > .item > .link {
-  font-size: 15px;
+  font-size: 17px;
   color: var(--vp-c-text-2);
 }
 
@@ -182,7 +182,7 @@ body {
 
 /* ======== 右侧大纲（本页目录）- 层级缩进 ======== */
 .VPDocAsideOutline .outline-link {
-  font-size: 14px;
+  font-size: 15px;
   transition: color 0.15s ease;
 }
 
