@@ -189,9 +189,9 @@ body {
   font-weight: 500 !important;
 }
 
-/* ======== 左侧侧边栏顶格对齐 ======== */
+/* ======== 左侧侧边栏头部与右侧大纲头部对齐 ======== */
 .VPSidebar .nav {
-  padding-top: 4px !important;
+  padding-top: 32px !important;
 }
 
 /* ======== 右侧大纲（本页目录） ======== */
