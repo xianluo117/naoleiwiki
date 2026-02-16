@@ -1,22 +1,9 @@
 ---
-layout: home
-
-hero:
-  name: ""
-  text: ""
-  tagline: SillyTavern 最大中文 Discord 社区 · 面向创作者与技术探索者
-  actions:
-    - theme: brand
-      text: 📋 查看社区规则
-      link: /community-rules/
-    - theme: alt
-      text: 🍼 新手教程
-      link: /beginner-guide/
+layout: doc
+title: 首页
 ---
 
-<div class="home-content">
-
-## 👋 欢迎来到类脑ΟΔΥΣΣΕΙΑ
+# 👋 欢迎来到类脑ΟΔΥΣΣΕΙΑ
 
 类脑ΟΔΥΣΣΕΙΑ 是 **SillyTavern（酒馆）最大的中文 Discord 交流社区**，汇聚技术探索者与自由创作者。
 
@@ -48,7 +35,5 @@ hero:
 - [📦 子区规则](/community-rules/subarea-rules)
 - [❓ 常见问题](/faq/)
 - [🍼 新手教程](/beginner-guide/)
-
-</div>
 
 </div>
