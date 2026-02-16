@@ -130,59 +130,68 @@ body {
   padding-top: 10px;
 }
 
-/* 分组标题样式（level-0）*/
-.VPSidebarItem.level-0 > .item > .text {
-  font-weight: 600;
-  font-size: 18px;
-  color: var(--vp-c-text-1);
+/* 一级标题（分组标题 + 直接链接）- 统一大字 */
+.VPSidebar .VPSidebarItem.level-0 > .item .text {
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  color: var(--vp-c-text-1) !important;
   letter-spacing: 0.2px;
 }
 
+/* 一级标题中的直接链接（如首页） */
+.VPSidebar .VPSidebarItem.level-0 > .item > .link {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: var(--vp-c-text-1) !important;
+}
+
 /* 子项缩进（level-1）- 在分组标题下首行缩进 */
-.VPSidebarItem.level-0 > .items {
+.VPSidebar .VPSidebarItem.level-0 > .items {
   padding-left: 8px;
 }
 
-.VPSidebarItem.level-1 > .item {
+.VPSidebar .VPSidebarItem.level-1 > .item {
   padding-left: 12px;
   border-left: 1px solid var(--vp-c-divider);
   margin-left: 4px;
 }
 
-.VPSidebarItem.level-1 > .item > .link {
-  font-size: 17px;
-  color: var(--vp-c-text-2);
+.VPSidebar .VPSidebarItem.level-1 > .item .text,
+.VPSidebar .VPSidebarItem.level-1 > .item > .link {
+  font-size: 16px !important;
+  color: var(--vp-c-text-2) !important;
 }
 
-.VPSidebarItem.level-1.is-active > .item {
+.VPSidebar .VPSidebarItem.level-1.is-active > .item {
   border-left-color: var(--vp-c-brand-1);
 }
 
-.VPSidebarItem.level-1.is-active > .item > .link {
+.VPSidebar .VPSidebarItem.level-1.is-active > .item .text,
+.VPSidebar .VPSidebarItem.level-1.is-active > .item > .link {
   color: var(--vp-c-brand-1) !important;
-  font-weight: 500;
+  font-weight: 500 !important;
 }
 
 /* 更深层级缩进（level-2 及以下，预留） */
-.VPSidebarItem.level-2 > .item {
+.VPSidebar .VPSidebarItem.level-2 > .item {
   padding-left: 24px;
 }
 
-/* 侧边栏链接 */
-.VPSidebarItem .link {
+/* 侧边栏链接通用 */
+.VPSidebar .VPSidebarItem .link {
   border-radius: 6px;
   transition: all 0.15s ease;
 }
 
-.VPSidebarItem.is-active > .item > .link {
+.VPSidebar .VPSidebarItem.is-active > .item > .link {
   background-color: var(--vp-c-brand-soft) !important;
   color: var(--vp-c-brand-1) !important;
-  font-weight: 500;
+  font-weight: 500 !important;
 }
 
-/* ======== 右侧大纲（本页目录）- 层级缩进 ======== */
+/* ======== 右侧大纲（本页目录） ======== */
 .VPDocAsideOutline .outline-link {
-  font-size: 15px;
+  font-size: 15px !important;
   transition: color 0.15s ease;
 }
 
@@ -193,8 +202,8 @@ body {
 
 /* 大纲活跃项高亮 */
 .VPDocAsideOutline .outline-link.active {
-  color: var(--vp-c-brand-1);
-  font-weight: 500;
+  color: var(--vp-c-brand-1) !important;
+  font-weight: 500 !important;
 }
 
 /* ======== 首页 Hero ======== */

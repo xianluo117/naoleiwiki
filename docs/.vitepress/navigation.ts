@@ -36,6 +36,7 @@ export const sections: Section[] = [
     text: "首页",
     icon: "🏠",
     link: "/",
+    items: [{ text: "返回首页", link: "/" }],
   },
   {
     text: "社区规则",
