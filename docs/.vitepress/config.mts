@@ -66,7 +66,7 @@ export default defineConfig({
     darkModeSwitchTitle: "切换主题",
 
     footer: {
-      message: "类脑ΟΔΥΣΣΕΙΑ · SillyTavern 最大中文 Discord 社区",
+      message: "类脑ΟΔΥΣΣΕΙΑ · SillyTavern 中文 Discord 社区",
       copyright: "Copyright © 2026 LeiNao Community",
     },
   },

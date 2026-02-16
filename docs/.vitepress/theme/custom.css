@@ -133,9 +133,10 @@ body {
 /* 分组标题样式（level-0）*/
 .VPSidebarItem.level-0 > .item > .text {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--vp-c-text-1);
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
+  text-transform: none;
 }
 
 /* 子项缩进（level-1）- 在分组标题下首行缩进 */
@@ -150,8 +151,9 @@ body {
 }
 
 .VPSidebarItem.level-1 > .item > .link {
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--vp-c-text-2);
+  line-height: 1.5;
 }
 
 .VPSidebarItem.level-1.is-active > .item {
@@ -182,8 +184,16 @@ body {
 
 /* ======== 右侧大纲（本页目录）- 层级缩进 ======== */
 .VPDocAsideOutline .outline-link {
-  font-size: 13px;
+  font-size: 12.5px;
+  line-height: 1.5;
   transition: color 0.15s ease;
+}
+
+/* 大纲标题「本页目录」*/
+.VPDocAsideOutline .content .outline-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 /* h3 级别大纲缩进 */

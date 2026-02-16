@@ -5,7 +5,7 @@ title: 首页
 
 # 👋 欢迎来到类脑ΟΔΥΣΣΕΙΑ
 
-类脑ΟΔΥΣΣΕΙΑ 是 **SillyTavern（酒馆）最大的中文 Discord 交流社区**，汇聚技术探索者与自由创作者。
+类脑ΟΔΥΣΣΕΙΑ 是 **SillyTavern（酒馆）是一个中文 Discord 交流社区**
 
 ::: tip 💡 第一次来？
 建议先阅读 [基础规则](/community-rules/basic-rules)，了解社区行为边界，然后去各个分区探索你感兴趣的内容！
