@@ -58,7 +58,7 @@ export default defineConfig({
     sidebar: [
       {
         text: "🏠 首页",
-        items: [{ text: "返回首页", link: "/" }],
+        link: "/",
       },
       {
         text: "📋 社区规则",
