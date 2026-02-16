@@ -270,19 +270,79 @@ docs/faq/install-errors.md    ← 新建此文件
 
 ## 🚢 部署
 
-### GitHub Pages（当前方案）
+### 方案一：GitHub Pages
 
 1. 推送代码到 `main` 分支
 2. GitHub Actions 自动触发构建和部署（见 `.github/workflows/deploy.yml`）
 3. 仓库 Settings → Pages → Source 设为 **GitHub Actions**
+4. `config.mts` 中 `base` 保持为 `/naoleiwiki/`
 
-### 其他部署方式
+访问地址：`https://<用户名>.github.io/naoleiwiki/`
 
-| 平台             | 构建命令                   | 输出目录                |
-| ---------------- | -------------------------- | ----------------------- |
-| Cloudflare Pages | `npx vitepress build docs` | `docs/.vitepress/dist`  |
-| Vercel           | `npx vitepress build docs` | `docs/.vitepress/dist`  |
-| VPS (Nginx)      | `npx vitepress build docs` | 将 dist 复制到 web root |
+### 方案二：Cloudflare Pages（推荐）
+
+#### 第一步：修改 `base` 路径
+
+Cloudflare Pages 部署到根域名（`*.pages.dev` 或自定义域名），需将 `config.mts` 中的 `base` 改为 `/`：
+
+```ts
+// docs/.vitepress/config.mts
+base: "/",  // Cloudflare Pages 使用根路径
+```
+
+> ⚠️ 如需同时保留 GitHub Pages，可使用环境变量方案：
+>
+> ```ts
+> base: process.env.CF_PAGES ? "/" : "/naoleiwiki/",
+> ```
+
+#### 第二步：Cloudflare 控制台配置
+
+1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create application** → **Pages**
+2. 选择 **Connect to Git** → 连接 GitHub 仓库
+3. 填写构建配置：
+
+| 配置项                     | 值                         |
+| -------------------------- | -------------------------- |
+| **Production branch**      | `main`                     |
+| **Framework preset**       | None                       |
+| **Build command**          | `npx vitepress build docs` |
+| **Build output directory** | `docs/.vitepress/dist`     |
+| **Root directory**         | `/`（默认）                |
+
+1. 在 **Environment variables** 中添加：
+
+| 变量名         | 值   | 说明                        |
+| -------------- | ---- | --------------------------- |
+| `NODE_VERSION` | `20` | 指定 Node.js 版本           |
+| `CF_PAGES`     | `1`  | 可选，用于环境变量切换 base |
+
+1. 点击 **Save and Deploy**
+
+#### 第三步：自定义域名（可选）
+
+1. 部署成功后，Cloudflare 会分配 `项目名.pages.dev` 域名
+2. 如需自定义域名：Pages 项目 → **Custom domains** → **Set up a custom domain**
+3. Cloudflare 会自动配置 DNS 记录和 SSL 证书
+
+#### 自动部署
+
+连接 GitHub 后，每次 push 到 `main` 分支都会自动触发 Cloudflare Pages 重新构建和部署。
+
+#### 常见问题
+
+| 问题                     | 解决方案                                                |
+| ------------------------ | ------------------------------------------------------- |
+| 构建失败提示 Node 版本低 | 添加环境变量 `NODE_VERSION` = `20`                      |
+| 页面 404 / 资源加载失败  | 检查 `config.mts` 中 `base` 是否为 `/`                  |
+| 样式/路由异常            | 确认 `Build output directory` 为 `docs/.vitepress/dist` |
+
+### 方案三：其他平台
+
+| 平台        | 构建命令                   | 输出目录                | 备注                 |
+| ----------- | -------------------------- | ----------------------- | -------------------- |
+| Vercel      | `npx vitepress build docs` | `docs/.vitepress/dist`  | `base: "/"`          |
+| VPS (Nginx) | `npx vitepress build docs` | 将 dist 复制到 web root | 需手动配置 try_files |
 
 ---
 
