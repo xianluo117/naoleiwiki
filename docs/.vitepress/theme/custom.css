@@ -622,4 +622,36 @@ body {
   .quick-links ul {
     flex-direction: column;
   }
+
+  /* 手机端 - 菜单（侧边栏）字体加大 */
+  .VPSidebar .VPSidebarItem.level-0 > .item .text,
+  .VPSidebar .VPSidebarItem.level-0 > .item > .link {
+    font-size: 20px !important;
+  }
+
+  .VPSidebar .VPSidebarItem.level-1 > .item .text,
+  .VPSidebar .VPSidebarItem.level-1 > .item > .link {
+    font-size: 18px !important;
+  }
+
+  /* 手机端 - 本页目录字体加大 */
+  .VPDocAsideOutline .outline-title,
+  .VPLocalNav .menu-text {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+  }
+
+  .VPDocAsideOutline .outline-link {
+    font-size: 17px !important;
+  }
+
+  /* 手机端顶部「本页目录」按钮 */
+  .VPLocalNav .VPLocalNavOutlineDropdown button {
+    font-size: 16px !important;
+  }
+
+  .VPLocalNav .VPLocalNavOutlineDropdown .items a {
+    font-size: 16px !important;
+    padding: 8px 16px !important;
+  }
 }
