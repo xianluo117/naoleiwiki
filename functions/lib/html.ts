@@ -122,7 +122,7 @@ export function loginPage(loginUrl: string): string {
   return layout(
     "登录验证",
     `
-    <div class="logo">🧠</div>
+    <div class="logo">💡</div>
     <h1>类脑ΟΔΥΣΣΕΙΑ · 社区知识库</h1>
     <p class="subtitle">
       本知识库仅对社区成员开放<br>
