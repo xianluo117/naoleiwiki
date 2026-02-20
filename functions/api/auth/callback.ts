@@ -5,8 +5,8 @@
  * 流程：
  * 1. 验证 state 参数（防 CSRF）
  * 2. 用 authorization code 换取 access_token
- * 3. 获取用户信息和服务器列表
- * 4. 验证用户是否在目标服务器中
+ * 3. 获取用户信息
+ * 4. 验证用户是否在目标服务器中且拥有指定身份组
  * 5. 签发 JWT session cookie
  * 6. 重定向到用户原始请求的页面
  */
@@ -22,7 +22,7 @@ import {
   exchangeCode,
   fetchUser,
   getRedirectUri,
-  isUserInGuild,
+  verifyMembership,
 } from "../../lib/discord";
 import { errorPage, notInGuildPage } from "../../lib/html";
 import { createJWT } from "../../lib/jwt";
@@ -124,12 +124,19 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     );
   }
 
-  // ── 6. 验证用户是否在目标服务器中 ──────────────────────
+  // ── 6. 验证用户是否在目标服务器中且拥有指定身份组 ──────
   let inGuild: boolean;
+  let hasRole: boolean;
   try {
-    inGuild = await isUserInGuild(accessToken, env.DISCORD_GUILD_ID);
+    const result = await verifyMembership(
+      accessToken,
+      env.DISCORD_GUILD_ID,
+      env.DISCORD_ROLE_ID,
+    );
+    inGuild = result.inGuild;
+    hasRole = result.hasRole;
   } catch (err) {
-    console.error("Guild check failed:", err);
+    console.error("Membership check failed:", err);
     return htmlResponse(
       errorPage("验证失败", "无法验证服务器成员身份，请稍后重试。"),
       500,
@@ -141,6 +148,19 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     // 你可以在这里设置你的 Discord 服务器邀请链接
     return htmlResponse(
       notInGuildPage(/* "https://discord.gg/你的邀请码" */),
+      403,
+      { "Set-Cookie": buildClearStateCookie() },
+    );
+  }
+
+  if (!hasRole) {
+    // 用户在服务器中但没有指定身份组
+    return htmlResponse(
+      errorPage(
+        "权限不足",
+        "您已加入社区服务器，但尚未获得访问知识库所需的身份组。请联系管理员获取权限。",
+        true,
+      ),
       403,
       { "Set-Cookie": buildClearStateCookie() },
     );

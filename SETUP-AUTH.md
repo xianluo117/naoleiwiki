@@ -40,19 +40,19 @@
 
 #### SCOPES（权限范围）
 
-| 选项                  |  是否勾选  | 说明                                           |
-| --------------------- | :--------: | ---------------------------------------------- |
-| `identify`            | ✅ **必选** | 获取用户基本信息（用户名、头像、ID）           |
-| `guilds`              | ✅ **必选** | 获取用户已加入的服务器列表（用于验证成员身份） |
-| `email`               |  ❌ 不勾选  | 不需要用户邮箱                                 |
-| `bot`                 |  ❌ 不勾选  | 我们不使用 Bot，仅使用 OAuth2                  |
-| `connections`         |  ❌ 不勾选  | 不需要用户的第三方平台连接信息                 |
-| `guilds.join`         |  ❌ 不勾选  | 不需要自动拉人进服务器                         |
-| `guilds.members.read` |  ❌ 不勾选  | 不需要读取服务器成员详细信息                   |
-| `messages.read`       |  ❌ 不勾选  | 不需要读取用户消息                             |
-| 其他所有选项          |  ❌ 不勾选  | 遵循最小权限原则                               |
+| 选项                  |  是否勾选  | 说明                                         |
+| --------------------- | :--------: | -------------------------------------------- |
+| `identify`            | ✅ **必选** | 获取用户基本信息（用户名、头像、ID）         |
+| `guilds.members.read` | ✅ **必选** | 查询用户在指定服务器中的成员信息和身份组     |
+| `guilds`              |  ❌ 不勾选  | 会暴露用户所有已加入的服务器列表（隐私风险） |
+| `email`               |  ❌ 不勾选  | 不需要用户邮箱                               |
+| `bot`                 |  ❌ 不勾选  | 我们不使用 Bot，仅使用 OAuth2                |
+| `connections`         |  ❌ 不勾选  | 不需要用户的第三方平台连接信息               |
+| `guilds.join`         |  ❌ 不勾选  | 不需要自动拉人进服务器                       |
+| `messages.read`       |  ❌ 不勾选  | 不需要读取用户消息                           |
+| 其他所有选项          |  ❌ 不勾选  | 遵循最小权限原则                             |
 
-> 💡 **最小权限原则**：只勾选 `identify` 和 `guilds` 两项。权限越少，用户越放心授权，安全风险越低。
+> 💡 **隐私优先**：使用 `guilds.members.read` 而非 `guilds`。前者只查询用户在**指定服务器**中的成员信息（含身份组），不会暴露用户所有服务器列表，用户更放心授权。
 
 #### REDIRECT URL
 
@@ -67,15 +67,19 @@ https://你的域名.pages.dev/api/auth/callback
 页面底部会生成一个授权 URL，格式如下：
 
 ```
-https://discord.com/oauth2/authorize?client_id=你的CLIENT_ID&response_type=code&redirect_uri=你的回调URL&scope=identify+guilds
+https://discord.com/oauth2/authorize?client_id=你的CLIENT_ID&response_type=code&redirect_uri=你的回调URL&scope=identify+guilds.members.read
 ```
 
 > ⚠️ **注意**：这个生成的 URL 仅供测试参考。实际使用中，登录流程由 `functions/api/auth/login.ts` 自动生成授权 URL，无需手动复制此链接。
 
-### 获取服务器 ID
+### 获取服务器 ID 和身份组 ID
 
 1. 在 Discord 客户端 → 用户设置 → 高级 → 打开「开发者模式」
 2. 右键点击目标服务器名称 → **复制服务器 ID**
+3. 获取身份组 ID：
+   - 进入目标服务器 → **服务器设置** → **身份组**
+   - 找到要用于验证的身份组，右键点击 → **复制身份组 ID**
+   - 或者在聊天中输入 `\@身份组名称`，发送后会显示 `<@&身份组ID>` 格式
 
 ---
 
@@ -138,6 +142,7 @@ node -e "console.log(require('crypto').randomBytes(16).toString('hex'))"
 | `DISCORD_CLIENT_ID`     | 你的 Discord 应用 Client ID     | 明文     |
 | `DISCORD_CLIENT_SECRET` | 你的 Discord 应用 Client Secret | **加密** |
 | `DISCORD_GUILD_ID`      | 你的 Discord 服务器 ID          | 明文     |
+| `DISCORD_ROLE_ID`       | 要求的 Discord 身份组 ID        | 明文     |
 | `JWT_SECRET`            | 第二步生成的 JWT 签名密钥       | **加密** |
 | `STATE_SECRET`          | 第二步生成的 State 加密密钥     | **加密** |
 
@@ -162,8 +167,9 @@ node -e "console.log(require('crypto').randomBytes(16).toString('hex'))"
 2. 应该看到 Discord 登录页面
 3. 点击「使用 Discord 登录」
 4. 在 Discord 授权页面点击「授权」
-5. 如果你在目标服务器中 → 自动重定向到知识库首页
+5. 如果你在目标服务器中且拥有指定身份组 → 自动重定向到知识库首页
 6. 如果不在目标服务器中 → 显示「请先加入服务器」提示页
+7. 如果在服务器中但没有指定身份组 → 显示「权限不足」提示页
 
 ---
 
@@ -274,6 +280,14 @@ functions/                        # Cloudflare Pages Functions
 ### Q: 提示「您尚未加入社区服务器」但实际已加入
 
 确认 `DISCORD_GUILD_ID` 是否正确（18 位数字字符串）。
+
+### Q: 提示「权限不足」但我已经在服务器中
+
+你在服务器中但没有指定的身份组。请检查：
+
+1. `DISCORD_ROLE_ID` 环境变量是否正确
+2. 联系服务器管理员为你分配对应的身份组
+3. 身份组 ID 可通过「开发者模式」右键身份组获取
 
 ### Q: 能否保留 GitHub Pages 同时使用 Cloudflare Pages？
 

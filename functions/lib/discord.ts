@@ -4,7 +4,7 @@
  */
 
 import type {
-  DiscordGuild,
+  DiscordGuildMember,
   DiscordTokenResponse,
   DiscordUser,
   Env,
@@ -17,8 +17,8 @@ const DISCORD_API_BASE = "https://discord.com/api/v10";
 const DISCORD_OAUTH2_AUTHORIZE = "https://discord.com/oauth2/authorize";
 const DISCORD_OAUTH2_TOKEN = `${DISCORD_API_BASE}/oauth2/token`;
 
-/** OAuth2 所需的 scope */
-const OAUTH2_SCOPES = "identify guilds";
+/** OAuth2 所需的 scope（使用 guilds.members.read 代替 guilds 以保护用户隐私） */
+const OAUTH2_SCOPES = "identify guilds.members.read";
 
 // ─── OAuth2 State 加密/解密 ─────────────────────────────────
 
@@ -217,29 +217,59 @@ export async function fetchUser(accessToken: string): Promise<DiscordUser> {
 }
 
 /**
- * 获取用户加入的服务器列表
+ * 获取用户在指定服务器中的成员信息
+ * 使用 guilds.members.read scope，仅查询指定服务器，不暴露用户所有服务器列表
+ *
+ * @param accessToken - OAuth2 access token
+ * @param guildId     - 目标服务器 ID
+ * @returns 成员信息，若用户不在该服务器则返回 null
  */
-export async function fetchUserGuilds(
+export async function fetchGuildMember(
   accessToken: string,
-): Promise<DiscordGuild[]> {
-  const response = await fetch(`${DISCORD_API_BASE}/users/@me/guilds`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-  });
+  guildId: string,
+): Promise<DiscordGuildMember | null> {
+  const response = await fetch(
+    `${DISCORD_API_BASE}/users/@me/guilds/${guildId}/member`,
+    {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    },
+  );
+
+  if (response.status === 404 || response.status === 403) {
+    // 用户不在该服务器，或无权访问
+    return null;
+  }
 
   if (!response.ok) {
-    throw new Error(`Discord guilds fetch failed: ${response.status}`);
+    throw new Error(`Discord guild member fetch failed: ${response.status}`);
   }
 
   return response.json();
 }
 
 /**
- * 检查用户是否在指定的 Discord 服务器中
+ * 检查用户是否在指定服务器中且拥有指定身份组
+ *
+ * @param accessToken - OAuth2 access token
+ * @param guildId     - 目标服务器 ID
+ * @param roleId      - 要求的身份组 ID
+ * @returns { inGuild, hasRole, member } 验证结果
  */
-export async function isUserInGuild(
+export async function verifyMembership(
   accessToken: string,
   guildId: string,
-): Promise<boolean> {
-  const guilds = await fetchUserGuilds(accessToken);
-  return guilds.some((guild) => guild.id === guildId);
+  roleId: string,
+): Promise<{
+  inGuild: boolean;
+  hasRole: boolean;
+  member: DiscordGuildMember | null;
+}> {
+  const member = await fetchGuildMember(accessToken, guildId);
+
+  if (!member) {
+    return { inGuild: false, hasRole: false, member: null };
+  }
+
+  const hasRole = member.roles.includes(roleId);
+  return { inGuild: true, hasRole, member };
 }

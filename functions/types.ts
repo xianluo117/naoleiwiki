@@ -11,6 +11,8 @@ export interface Env {
   DISCORD_CLIENT_SECRET: string;
   /** 要验证的 Discord 服务器 ID */
   DISCORD_GUILD_ID: string;
+  /** 要验证的 Discord 身份组 ID（用户必须拥有此身份组才能访问） */
+  DISCORD_ROLE_ID: string;
   /** JWT 签名密钥（至少 32 字符随机字符串） */
   JWT_SECRET: string;
   /** OAuth2 state 加密密钥（至少 16 字符随机字符串） */
@@ -42,6 +44,24 @@ export interface DiscordGuild {
   icon: string | null;
   owner: boolean;
   permissions: string;
+}
+
+/** Discord Guild Member（服务器成员信息，guilds.members.read 返回） */
+export interface DiscordGuildMember {
+  /** 用户对象 */
+  user?: DiscordUser;
+  /** 服务器内昵称 */
+  nick: string | null;
+  /** 用户头像 hash（服务器内） */
+  avatar: string | null;
+  /** 用户拥有的身份组 ID 列表 */
+  roles: string[];
+  /** 加入服务器时间 */
+  joined_at: string;
+  /** 是否被禁言 */
+  mute: boolean;
+  /** 是否被服务器静音 */
+  deaf: boolean;
 }
 
 /** JWT Payload 结构 */
