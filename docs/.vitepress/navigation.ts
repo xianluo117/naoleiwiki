@@ -77,14 +77,48 @@ export const sections: Section[] = [
         ],
       },
       { text: "更新与备份迁移", link: "/st-basics/update-backup" },
+      {
+        text: "📚 进阶知识",
+        collapsed: false,
+        items: [
+          { text: "斜杠命令", link: "/st-basics/slash-commands" },
+          { text: "文件结构", link: "/st-basics/file-structure" },
+          { text: "正则功能", link: "/st-basics/regex" },
+        ],
+      },
+    ],
+  },
+  {
+    text: "报错对照",
+    sidebarText: "报错对照表",
+    icon: "🚨",
+    link: "/troubleshooting/",
+    items: [
+      { text: "报错总览", link: "/troubleshooting/" },
+      {
+        text: "💎 Gemini",
+        collapsed: false,
+        items: [
+          { text: "AI Studio API", link: "/troubleshooting/gemini-api" },
+          { text: "CLI2api", link: "/troubleshooting/gemini-cli" },
+          { text: "Build2api", link: "/troubleshooting/gemini-build" },
+        ],
+      },
+      { text: "Claude Cookie反代", link: "/troubleshooting/claude" },
+      { text: "DeepSeek", link: "/troubleshooting/deepseek" },
+      { text: "各LLM通用", link: "/troubleshooting/general" },
     ],
   },
   {
     text: "常见问题",
-    sidebarText: "酒馆常见问题",
+    sidebarText: "常见问题",
     icon: "❓",
     link: "/faq/",
-    items: [{ text: "问题总览", link: "/faq/" }],
+    items: [
+      { text: "问题总览", link: "/faq/" },
+      { text: "酒馆使用问题", link: "/faq/st-usage" },
+      { text: "Discord 相关问题", link: "/faq/discord" },
+    ],
   },
   {
     text: "新手教程",
