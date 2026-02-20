@@ -22,7 +22,6 @@
 
 - 🍺 [酒馆基础](/st-basics/) — 部署安装、文件结构、斜杠命令等
 - 🚨 [报错对照表](/troubleshooting/) — 各 API 渠道的报错与解决方案
-- 📋 [社区规则](/community-rules/)
 - 📖 [返回首页](/)
 
 ::: info 📌 持续更新

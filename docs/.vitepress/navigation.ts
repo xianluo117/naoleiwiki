@@ -50,16 +50,6 @@ export const sections: Section[] = [
     link: "/",
   },
   {
-    text: "社区规则",
-    icon: "📋",
-    link: "/community-rules/",
-    items: [
-      { text: "规则总览", link: "/community-rules/" },
-      { text: "基础规则", link: "/community-rules/basic-rules" },
-      { text: "子区规则", link: "/community-rules/subarea-rules" },
-    ],
-  },
-  {
     text: "酒馆基础",
     sidebarText: "酒馆基础问题",
     icon: "🍺",
