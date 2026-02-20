@@ -1,5 +1,7 @@
 {
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260227.0",
+    "@types/node": "^25.3.0",
     "vitepress": "^1.6.4"
   }
 }

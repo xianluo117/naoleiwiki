@@ -1,8 +1,11 @@
 import { defineConfig } from "vitepress";
 import { generateNav, generateSidebar } from "./navigation";
 
+// Cloudflare Pages 部署时使用根路径，GitHub Pages 使用 /naoleiwiki/
+const base = process.env.CF_PAGES ? "/" : "/naoleiwiki/";
+
 export default defineConfig({
-  base: "/naoleiwiki/",
+  base,
   title: "类脑社区知识库",
   description: "类脑ΟΔΥΣΣΕΙΑ 社区知识库 - 面向创作者与技术探索者的中文知识库",
   lang: "zh-CN",

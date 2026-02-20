@@ -4,3 +4,9 @@ docs/.vitepress/dist/
 *.local
 .DS_Store
 Thumbs.db
+
+# 环境变量（密钥安全）
+.env
+.env.*
+.dev.vars
+wrangler.toml
