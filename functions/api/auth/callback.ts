@@ -131,7 +131,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const result = await verifyMembership(
       accessToken,
       env.DISCORD_GUILD_ID,
-      env.DISCORD_ROLE_ID,
+      env.DISCORD_ROLE_IDS,
     );
     inGuild = result.inGuild;
     hasRole = result.hasRole;

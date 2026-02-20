@@ -248,28 +248,40 @@ export async function fetchGuildMember(
 }
 
 /**
- * 检查用户是否在指定服务器中且拥有指定身份组
+ * 检查用户是否在指定服务器中且拥有任一指定身份组
  *
  * @param accessToken - OAuth2 access token
  * @param guildId     - 目标服务器 ID
- * @param roleId      - 要求的身份组 ID
- * @returns { inGuild, hasRole, member } 验证结果
+ * @param roleIds     - 允许的身份组 ID 列表（逗号分隔的字符串）
+ * @returns { inGuild, hasRole, matchedRoles, member } 验证结果
  */
 export async function verifyMembership(
   accessToken: string,
   guildId: string,
-  roleId: string,
+  roleIds: string,
 ): Promise<{
   inGuild: boolean;
   hasRole: boolean;
+  matchedRoles: string[];
   member: DiscordGuildMember | null;
 }> {
   const member = await fetchGuildMember(accessToken, guildId);
 
   if (!member) {
-    return { inGuild: false, hasRole: false, member: null };
+    return { inGuild: false, hasRole: false, matchedRoles: [], member: null };
   }
 
-  const hasRole = member.roles.includes(roleId);
-  return { inGuild: true, hasRole, member };
+  // 解析逗号分隔的身份组 ID 列表，去除空白
+  const allowedRoles = roleIds
+    .split(",")
+    .map((id) => id.trim())
+    .filter((id) => id.length > 0);
+
+  // 找出用户拥有的匹配身份组
+  const matchedRoles = allowedRoles.filter((roleId) =>
+    member.roles.includes(roleId),
+  );
+
+  const hasRole = matchedRoles.length > 0;
+  return { inGuild: true, hasRole, matchedRoles, member };
 }

@@ -135,16 +135,16 @@ node -e "console.log(require('crypto').randomBytes(16).toString('hex'))"
 
 在 Cloudflare Pages 项目 → **Settings** → **Environment variables** 中添加以下变量：
 
-| 变量名                  | 值                              | 类型     |
-| ----------------------- | ------------------------------- | -------- |
-| `NODE_VERSION`          | `20`                            | 明文     |
-| `CF_PAGES`              | `1`                             | 明文     |
-| `DISCORD_CLIENT_ID`     | 你的 Discord 应用 Client ID     | 明文     |
-| `DISCORD_CLIENT_SECRET` | 你的 Discord 应用 Client Secret | **加密** |
-| `DISCORD_GUILD_ID`      | 你的 Discord 服务器 ID          | 明文     |
-| `DISCORD_ROLE_ID`       | 要求的 Discord 身份组 ID        | 明文     |
-| `JWT_SECRET`            | 第二步生成的 JWT 签名密钥       | **加密** |
-| `STATE_SECRET`          | 第二步生成的 State 加密密钥     | **加密** |
+| 变量名                  | 值                                | 类型     |
+| ----------------------- | --------------------------------- | -------- |
+| `NODE_VERSION`          | `20`                              | 明文     |
+| `CF_PAGES`              | `1`                               | 明文     |
+| `DISCORD_CLIENT_ID`     | 你的 Discord 应用 Client ID       | 明文     |
+| `DISCORD_CLIENT_SECRET` | 你的 Discord 应用 Client Secret   | **加密** |
+| `DISCORD_GUILD_ID`      | 你的 Discord 服务器 ID            | 明文     |
+| `DISCORD_ROLE_IDS`      | 允许的身份组 ID（多个用逗号分隔） | 明文     |
+| `JWT_SECRET`            | 第二步生成的 JWT 签名密钥         | **加密** |
+| `STATE_SECRET`          | 第二步生成的 State 加密密钥       | **加密** |
 
 > 💡 Cloudflare 的「加密」变量在设置后不可查看，只能覆盖。适合存放密钥。
 
@@ -283,10 +283,10 @@ functions/                        # Cloudflare Pages Functions
 
 ### Q: 提示「权限不足」但我已经在服务器中
 
-你在服务器中但没有指定的身份组。请检查：
+你在服务器中但没有任何允许的身份组。请检查：
 
-1. `DISCORD_ROLE_ID` 环境变量是否正确
-2. 联系服务器管理员为你分配对应的身份组
+1. `DISCORD_ROLE_IDS` 环境变量是否正确（多个 ID 用逗号分隔，如 `123456,789012,345678`）
+2. 联系服务器管理员为你分配对应的身份组（拥有其中任意一个即可）
 3. 身份组 ID 可通过「开发者模式」右键身份组获取
 
 ### Q: 能否保留 GitHub Pages 同时使用 Cloudflare Pages？

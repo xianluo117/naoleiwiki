@@ -11,8 +11,8 @@ export interface Env {
   DISCORD_CLIENT_SECRET: string;
   /** 要验证的 Discord 服务器 ID */
   DISCORD_GUILD_ID: string;
-  /** 要验证的 Discord 身份组 ID（用户必须拥有此身份组才能访问） */
-  DISCORD_ROLE_ID: string;
+  /** 允许访问的 Discord 身份组 ID 列表（逗号分隔，拥有其中任意一个即可） */
+  DISCORD_ROLE_IDS: string;
   /** JWT 签名密钥（至少 32 字符随机字符串） */
   JWT_SECRET: string;
   /** OAuth2 state 加密密钥（至少 16 字符随机字符串） */
