@@ -153,7 +153,7 @@ export function buildAuthorizationURL(
     response_type: "code",
     scope: OAUTH2_SCOPES,
     state,
-    prompt: "none",
+    prompt: "consent",
   });
 
   return `${DISCORD_OAUTH2_AUTHORIZE}?${params.toString()}`;
@@ -198,7 +198,12 @@ export async function exchangeCode(
     );
   }
 
-  return response.json();
+  const tokenData: DiscordTokenResponse = await response.json();
+
+  // 记录授予的 scope，便于诊断
+  console.log(`[OAuth] Granted scopes: ${tokenData.scope}`);
+
+  return tokenData;
 }
 
 /**
@@ -228,23 +233,43 @@ export async function fetchGuildMember(
   accessToken: string,
   guildId: string,
 ): Promise<DiscordGuildMember | null> {
-  const response = await fetch(
-    `${DISCORD_API_BASE}/users/@me/guilds/${guildId}/member`,
-    {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    },
-  );
+  const memberUrl = `${DISCORD_API_BASE}/users/@me/guilds/${guildId}/member`;
+  console.log(`[OAuth] Fetching guild member: ${memberUrl}`);
 
-  if (response.status === 404 || response.status === 403) {
-    // 用户不在该服务器，或无权访问
+  const response = await fetch(memberUrl, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+
+  console.log(`[OAuth] Guild member response status: ${response.status}`);
+
+  if (response.status === 404) {
+    // 用户不在该服务器
+    console.log("[OAuth] User is NOT in the guild (404)");
+    return null;
+  }
+
+  if (response.status === 403) {
+    // 可能缺少 guilds.members.read scope，或用户不在服务器
+    const errorBody = await response.text();
+    console.log(`[OAuth] Guild member 403 response: ${errorBody}`);
     return null;
   }
 
   if (!response.ok) {
-    throw new Error(`Discord guild member fetch failed: ${response.status}`);
+    const errorBody = await response.text();
+    console.error(
+      `[OAuth] Guild member fetch failed: ${response.status} - ${errorBody}`,
+    );
+    throw new Error(
+      `Discord guild member fetch failed: ${response.status} - ${errorBody}`,
+    );
   }
 
-  return response.json();
+  const member: DiscordGuildMember = await response.json();
+  console.log(
+    `[OAuth] Guild member found, roles: ${JSON.stringify(member.roles)}`,
+  );
+  return member;
 }
 
 /**

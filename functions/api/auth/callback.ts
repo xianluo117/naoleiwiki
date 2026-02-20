@@ -100,15 +100,27 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   // ── 4. 用 code 换取 access_token ───────────────────────
   let accessToken: string;
+  let grantedScopes: string = "";
   try {
     const redirectUri = getRedirectUri(request);
     const tokenData = await exchangeCode(code, redirectUri, env);
     accessToken = tokenData.access_token;
+    grantedScopes = tokenData.scope || "";
   } catch (err) {
     console.error("Token exchange failed:", err);
     return htmlResponse(
-      errorPage("登录失败", "无法与 Discord 服务器通信，请稍后重试。"),
+      errorPage(
+        "登录失败",
+        `无法与 Discord 服务器通信，请稍后重试。<br><small style="color:#64748b">${err instanceof Error ? err.message : String(err)}</small>`,
+      ),
       500,
+    );
+  }
+
+  // 检查是否获得了 guilds.members.read scope
+  if (!grantedScopes.includes("guilds.members.read")) {
+    console.warn(
+      `[OAuth] Missing guilds.members.read scope! Got: ${grantedScopes}`,
     );
   }
 
@@ -135,10 +147,23 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     );
     inGuild = result.inGuild;
     hasRole = result.hasRole;
+    console.log(
+      `[OAuth] Membership result: inGuild=${inGuild}, hasRole=${hasRole}, matchedRoles=${JSON.stringify(result.matchedRoles)}`,
+    );
   } catch (err) {
     console.error("Membership check failed:", err);
+    const errMsg = err instanceof Error ? err.message : String(err);
     return htmlResponse(
-      errorPage("验证失败", "无法验证服务器成员身份，请稍后重试。"),
+      errorPage(
+        "验证失败",
+        `无法验证服务器成员身份。<br><br>` +
+          `<small style="color:#64748b;text-align:left;display:block;">` +
+          `<b>诊断信息：</b><br>` +
+          `错误: ${errMsg}<br>` +
+          `已授权 scope: ${grantedScopes}<br>` +
+          `目标服务器 ID: ${env.DISCORD_GUILD_ID}` +
+          `</small>`,
+      ),
       500,
     );
   }

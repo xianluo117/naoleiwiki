@@ -133,8 +133,8 @@ export function loginPage(loginUrl: string): string {
       使用 Discord 登录
     </a>
     <p class="info-text">
-      🔒 我们仅获取您的基本信息和服务器列表<br>
-      不会读取您的消息或执行任何操作
+      🔒 我们仅获取您的基本信息和社区成员身份<br>
+      不会读取您的消息、服务器列表或执行任何操作
     </p>
     `,
   );
