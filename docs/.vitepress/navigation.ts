@@ -48,6 +48,20 @@ export const sections: Section[] = [
     ],
   },
   {
+    text: "酒馆基础",
+    sidebarText: "酒馆基础问题",
+    icon: "🍺",
+    link: "/st-basics/",
+    items: [
+      { text: "基础总览", link: "/st-basics/" },
+      { text: "什么是酒馆", link: "/st-basics/what-is-st" },
+      { text: "Windows 部署", link: "/st-basics/install-windows" },
+      { text: "Linux / MacOS 部署", link: "/st-basics/install-linux" },
+      { text: "Android 部署", link: "/st-basics/install-android" },
+      { text: "更新与备份迁移", link: "/st-basics/update-backup" },
+    ],
+  },
+  {
     text: "常见问题",
     sidebarText: "酒馆常见问题",
     icon: "❓",
