@@ -117,6 +117,12 @@ export const sections: Section[] = [
     link: "/beginner-guide/",
     items: [{ text: "教程总览", link: "/beginner-guide/" }],
   },
+  {
+    text: "致谢",
+    icon: "🙏",
+    link: "/credits/",
+    items: [{ text: "致谢", link: "/credits/" }],
+  },
 ];
 
 // ============================================
