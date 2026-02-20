@@ -7,12 +7,24 @@
  *  📌 使用说明：
  *  - 新增页面：在对应 section 的 items 中添加 { text, link }
  *  - 新增分区：在 sections 数组末尾追加一个 Section 对象
- *  - text      → 显示在顶部导航栏的文字
+ *  - 支持嵌套：items 内可以再嵌套 items，实现多级侧边栏
+ *
+ *  字段说明：
+ *  - text        → 显示在顶部导航栏的文字
  *  - sidebarText → 显示在侧边栏的文字（可选，默认与 text 相同）
- *  - icon      → 侧边栏标题前的 emoji 图标
- *  - link      → 该分区的主链接
- *  - items     → 子页面列表
+ *  - icon        → 侧边栏标题前的 emoji 图标
+ *  - link        → 该分区的主链接
+ *  - items       → 子页面列表（支持递归嵌套）
+ *  - collapsed   → 嵌套分组是否默认折叠
  */
+
+/** 递归侧边栏项：既可以是页面链接，也可以是嵌套分组 */
+export interface SidebarItem {
+  text: string;
+  link?: string;
+  collapsed?: boolean;
+  items?: SidebarItem[];
+}
 
 export interface Section {
   /** 顶部导航栏显示文字 */
@@ -23,8 +35,8 @@ export interface Section {
   icon?: string;
   /** 分区主链接 */
   link: string;
-  /** 子页面列表 */
-  items?: { text: string; link: string }[];
+  /** 子页面列表（支持嵌套分组） */
+  items?: SidebarItem[];
 }
 
 // ============================================
@@ -55,9 +67,15 @@ export const sections: Section[] = [
     items: [
       { text: "基础总览", link: "/st-basics/" },
       { text: "什么是酒馆", link: "/st-basics/what-is-st" },
-      { text: "Windows 部署", link: "/st-basics/install-windows" },
-      { text: "Linux / MacOS 部署", link: "/st-basics/install-linux" },
-      { text: "Android 部署", link: "/st-basics/install-android" },
+      {
+        text: "📦 部署安装",
+        collapsed: false,
+        items: [
+          { text: "Windows 部署", link: "/st-basics/install/windows" },
+          { text: "Linux / MacOS 部署", link: "/st-basics/install/linux" },
+          { text: "Android 部署", link: "/st-basics/install/android" },
+        ],
+      },
       { text: "更新与备份迁移", link: "/st-basics/update-backup" },
     ],
   },
@@ -80,14 +98,32 @@ export const sections: Section[] = [
 // ============================================
 //  自动生成顶部导航栏
 // ============================================
+
+/** 将嵌套 SidebarItem 树展平为 { text, link } 列表（用于顶部导航下拉菜单） */
+function flattenItems(items: SidebarItem[]): { text: string; link: string }[] {
+  const result: { text: string; link: string }[] = [];
+  for (const item of items) {
+    if (item.link) {
+      result.push({ text: item.text, link: item.link });
+    }
+    if (item.items) {
+      result.push(...flattenItems(item.items));
+    }
+  }
+  return result;
+}
+
 export function generateNav() {
   return sections.map((section) => {
-    // 有多个子项 → 下拉菜单
-    if (section.items && section.items.length > 1) {
-      return {
-        text: section.text,
-        items: section.items,
-      };
+    if (section.items && section.items.length > 0) {
+      const flat = flattenItems(section.items);
+      // 有多个叶子链接 → 下拉菜单
+      if (flat.length > 1) {
+        return {
+          text: section.text,
+          items: flat,
+        };
+      }
     }
     // 无子项或只有一个子项 → 简单链接
     return {
@@ -115,7 +151,7 @@ export function generateSidebar() {
       };
     }
 
-    // 有子项 → 分组展开
+    // 有子项 → 分组展开（items 可以包含嵌套分组，VitePress 原生支持）
     return {
       text: displayText,
       collapsed: false,

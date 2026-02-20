@@ -37,7 +37,7 @@ git clone https://github.com/SillyTavern/SillyTavern -b release
 
 ### 3. 启动
 
-git clone 完成后，进入 `SillyTavern` 文件夹��双击 **`start.bat`**。
+git clone 完成后，进入 `SillyTavern` 文件夹，双击 **`start.bat`**。
 
 Node.js 将自动安装所需依赖，稍等片刻后，ST 会在浏览器中自动打开。
 
@@ -47,4 +47,4 @@ Node.js 将自动安装所需依赖，稍等片刻后，ST 会在浏览器中自
 
 ## 下一步
 
-安装完成后，了解如何 [更新和备份迁移](./update-backup.md)。
+安装完成后，了解如何 [更新和备份迁移](../update-backup.md)。

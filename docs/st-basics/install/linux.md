@@ -52,4 +52,4 @@ chmod +x start.sh
 
 ## 下一步
 
-安装完成后，了解如何 [更新和备份迁移](./update-backup.md)。
+安装完成后，了解如何 [更新和备份迁移](../update-backup.md)。
