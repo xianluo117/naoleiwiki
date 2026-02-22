@@ -58,7 +58,7 @@ export const sections: Section[] = [
       { text: "基础总览", link: "/st-basics/" },
       { text: "什么是酒馆", link: "/st-basics/what-is-st" },
       {
-        text: "📦 部署安装",
+        text: "部署安装",
         collapsed: false,
         items: [
           { text: "Windows 部署", link: "/st-basics/install/windows" },
@@ -68,7 +68,7 @@ export const sections: Section[] = [
       },
       { text: "更新与备份迁移", link: "/st-basics/update-backup" },
       {
-        text: "📚 进阶知识",
+        text: "进阶知识",
         collapsed: false,
         items: [
           { text: "斜杠命令", link: "/st-basics/slash-commands" },
@@ -86,7 +86,7 @@ export const sections: Section[] = [
     items: [
       { text: "报错总览", link: "/troubleshooting/" },
       {
-        text: "💎 Gemini",
+        text: "Gemini",
         collapsed: false,
         items: [
           { text: "AI Studio API", link: "/troubleshooting/gemini-api" },
