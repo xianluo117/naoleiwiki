@@ -44,6 +44,7 @@ export default defineConfig({
   lastUpdated: true,
 
   head: [
+    ["link", { rel: "icon", href: `${base}ico.jpg`, type: "image/jpeg" }],
     ["meta", { name: "theme-color", content: "#3b82f6" }],
     ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
     [
