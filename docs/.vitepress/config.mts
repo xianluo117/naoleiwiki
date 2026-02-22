@@ -4,6 +4,37 @@ import { generateNav, generateSidebar } from "./navigation";
 // Cloudflare Pages 部署时使用根路径，GitHub Pages 使用 /naoleiwiki/
 const base = process.env.CF_PAGES ? "/" : "/naoleiwiki/";
 
+/**
+ * 兼顾中文与英文的简易分词：
+ * - 中文：按单字 + 邻接双字切分（提升“删除”这类词的命中率）
+ * - 英文/数字：按连续词切分
+ */
+function zhTokenizer(text: string | null | undefined): string[] {
+  if (typeof text !== "string" || text.length === 0) {
+    return [];
+  }
+
+  const normalized = text.toLowerCase();
+  const tokens = new Set<string>();
+
+  // 英文、数字、下划线按词切分
+  const latinWords = normalized.match(/[a-z0-9_]+/g) ?? [];
+  for (const word of latinWords) {
+    tokens.add(word);
+  }
+
+  // 中文按字切分，并补充双字 token
+  const cjkChars = normalized.match(/[\u4e00-\u9fff]/g) ?? [];
+  for (let i = 0; i < cjkChars.length; i++) {
+    tokens.add(cjkChars[i]);
+    if (i < cjkChars.length - 1) {
+      tokens.add(`${cjkChars[i]}${cjkChars[i + 1]}`);
+    }
+  }
+
+  return [...tokens];
+}
+
 export default defineConfig({
   base,
   title: "类脑社区知识库",
@@ -27,6 +58,15 @@ export default defineConfig({
     search: {
       provider: "local",
       options: {
+        miniSearch: {
+          options: {
+            tokenize: zhTokenizer,
+          },
+          searchOptions: {
+            prefix: true,
+            fuzzy: 0.1,
+          },
+        },
         translations: {
           button: {
             buttonText: "搜索",
