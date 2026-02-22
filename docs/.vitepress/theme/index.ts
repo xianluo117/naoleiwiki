@@ -4,9 +4,9 @@ import "./custom.css";
 
 export default {
   extends: DefaultTheme,
-  Layout: () => {
-    const banner = () =>
-      h("div", { class: "global-top-banner-row" }, [
+  Layout() {
+    return h(DefaultTheme.Layout, null, {
+      "doc-before": () =>
         h("div", { class: "global-top-banner" }, [
           "若未查找到对应内容请前往",
           h(
@@ -18,12 +18,7 @@ export default {
             },
             "答疑区",
           ),
-          "。",
         ]),
-      ]);
-
-    return h(DefaultTheme.Layout, null, {
-      "layout-top": banner,
     });
   },
 };
