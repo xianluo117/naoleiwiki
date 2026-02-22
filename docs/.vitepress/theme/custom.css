@@ -102,6 +102,60 @@ body {
   background-color: rgba(15, 23, 42, 0.85) !important;
 }
 
+/* ======== 全局顶部横幅（独立一行，与导航栏隔离） ======== */
+.global-top-banner-row {
+  position: relative;
+  z-index: 30;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 24px;
+  background: var(--vp-c-bg);
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.global-top-banner {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--vp-c-text-1);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.global-top-banner a {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dark .global-top-banner {
+  background: rgba(96, 165, 250, 0.12);
+  border-color: rgba(96, 165, 250, 0.35);
+}
+
+.dark .global-top-banner-row {
+  background: var(--vp-c-bg);
+  border-bottom-color: var(--vp-c-divider);
+}
+
+@media (max-width: 768px) {
+  .global-top-banner-row {
+    padding: 6px 12px;
+  }
+
+  .global-top-banner {
+    font-size: 12px;
+    padding: 7px 10px;
+    border-radius: 6px;
+  }
+}
+
 .VPNavBar .title {
   font-weight: 700 !important;
   font-size: 16px !important;
