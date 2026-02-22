@@ -1,4 +1,4 @@
-# 🪟 Windows 部署
+# 💻 Windows 部署
 
 在 Windows 上安装 SillyTavern 的完整步骤。
 
