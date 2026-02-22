@@ -64,7 +64,7 @@ export default defineConfig({
           },
           searchOptions: {
             prefix: true,
-            fuzzy: 0.1,
+            fuzzy: 0,
           },
         },
         translations: {
