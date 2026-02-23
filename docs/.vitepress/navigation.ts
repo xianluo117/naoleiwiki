@@ -116,7 +116,6 @@ export const sections: Section[] = [
     icon: "🔧",
     link: "/tools/",
     items: [
-      { text: "工具总览", link: "/tools/" },
       { text: "杂项", link: "/tools/misc" },
       { text: "正则", link: "/tools/regex" },
       { text: "插件", link: "/tools/plugins" },
