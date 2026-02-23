@@ -80,7 +80,7 @@ export const sections: Section[] = [
   },
   {
     text: "常见问题",
-    sidebarText: "常见问��",
+    sidebarText: "常见问题",
     icon: "❓",
     link: "/faq/",
     items: [
@@ -109,13 +109,6 @@ export const sections: Section[] = [
       { text: "DeepSeek", link: "/troubleshooting/deepseek" },
       { text: "各LLM通用", link: "/troubleshooting/general" },
     ],
-  },
-  {
-    text: "新手教程",
-    sidebarText: "新手宝宝教程",
-    icon: "🍼",
-    link: "/beginner-guide/",
-    items: [{ text: "教程总览", link: "/beginner-guide/" }],
   },
   {
     text: "致谢",
