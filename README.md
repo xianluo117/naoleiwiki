@@ -1,8 +1,11 @@
 # 类脑ΟΔΥΣΣΕΙΑ · 社区知识库
 
-本仓库使用 [VitePress](https://vitepress.dev/) 构建，部署于 GitHub Pages。
+本仓库使用 [VitePress](https://vitepress.dev/) 构建，支持 Cloudflare Pages / GitHub Pages 双平台部署。
 
-> **线上地址**：`https://<用户名>.github.io/naoleiwiki/`
+> **线上地址**：
+>
+> - Cloudflare Pages：`https://<项目名>.pages.dev/`（或自定义域名）
+> - GitHub Pages：`https://<用户名>.github.io/naoleiwiki/`
 
 ---
 
@@ -11,29 +14,62 @@
 ```text
 .
 ├─ README.md                          # 仓库说明 & 编写指南（不参与站点构建）
+├─ SETUP-AUTH.md                      # Discord OAuth 认证配置指南
 ├─ package.json
 ├─ .gitignore
 ├─ .github/workflows/deploy.yml       # GitHub Actions 自动部署
 │
+├─ functions/                          # Cloudflare Pages Functions（Discord OAuth）
+│   ├─ _middleware.ts                  # 鉴权中间件
+│   ├─ types.ts                        # 类型定义
+│   ├─ api/auth/                       # OAuth 路由
+│   │   ├─ login.ts
+│   │   ├─ callback.ts
+│   │   └─ logout.ts
+│   └─ lib/                            # 工具库
+│       ├─ cookie.ts
+│       ├─ discord.ts
+│       ├─ html.ts
+│       └─ jwt.ts
+│
 └─ docs/                               # ⭐ 站点内容根目录
    ├─ index.md                         # 首页
+   ├─ public/
+   │   └─ ico.jpg                      # 网站 favicon
    ├─ .vitepress/
    │   ├─ config.mts                   # 核心配置（搜索 / 主题 / 页脚等）
    │   ├─ navigation.ts                # ⭐ 统一导航数据源（顶栏 + 侧边栏）
    │   └─ theme/
-   │       ├─ index.ts                 # 主题入口
+   │       ├─ index.ts                 # 主题入口（含全局提示横幅）
    │       └─ custom.css               # 全局自定义样式
    │
-   ├─ community-rules/                 # 社区规则
-   │   ├─ index.md                     # 规则总览
-   │   ├─ basic-rules.md               # 基础规则
-   │   └─ subarea-rules.md             # 子区规则
-   │
-   ├─ faq/                             # 常见问题
+   ├─ beginner-guide/                  # 新手教程
    │   └─ index.md
-   │
-   └─ beginner-guide/                  # 新手教程
-       └─ index.md
+   ├─ credits/                         # 致谢
+   │   └─ index.md
+   ├─ faq/                             # 常见问题
+   │   ├─ index.md
+   │   ├─ discord.md                   # Discord 相关
+   │   └─ st-usage.md                  # 酒馆使用问题
+   ├─ st-basics/                       # 酒馆基础
+   │   ├─ index.md
+   │   ├─ what-is-st.md
+   │   ├─ file-structure.md
+   │   ├─ regex.md
+   │   ├─ slash-commands.md
+   │   ├─ update-backup.md
+   │   └─ install/                     # 部署安装
+   │       ├─ windows.md
+   │       ├─ linux.md
+   │       └─ android.md
+   └─ troubleshooting/                 # 报错对照表
+       ├─ index.md                     # 渠道总览
+       ├─ general.md                   # 通用问题
+       ├─ gemini-api.md
+       ├─ gemini-build.md
+       ├─ gemini-cli.md
+       ├─ claude.md
+       └─ deepseek.md
 ```
 
 **关键点**：
@@ -41,6 +77,8 @@
 - 只有 `docs/` 目录参与站点构建，根目录文件（如本 README）不会出现在线上站点中。
 - **导航配置统一维护** — `docs/.vitepress/navigation.ts` 是顶栏和侧边栏的唯一数据源。
 - `config.mts` 通过 `generateNav()` 和 `generateSidebar()` 自动生成导航结构，无需手动同步。
+- `functions/` 目录为 Cloudflare Pages Functions，实现 Discord OAuth 登录鉴权。
+- `docs/public/` 存放静态资源（如 favicon），构建时会原样复制到输出根目录。
 
 ---
 
@@ -241,10 +279,10 @@ docs/faq/install-errors.md    ← 新建此文件
 
 ```markdown
 <!-- 站内链接 —— 使用绝对路径（基于 docs/ 目录） -->
-[基础规则](/community-rules/basic-rules)
+[报错对照表](/troubleshooting/)
 
 <!-- 同目录下的相对链接 -->
-[子区规则](./subarea-rules)
+[酒馆使用问题](./st-usage)
 
 <!-- 外部链接 -->
 [Discord 社区准则](https://discord.com/guidelines)
@@ -254,17 +292,21 @@ docs/faq/install-errors.md    ← 新建此文件
 
 ## 🔧 配置速查
 
-`docs/.vitepress/config.mts` 核心字段：
+`docs/.vitepress/` 核心文件与字段：
 
-| 文件 / 字段             | 说明                                      |
-| ----------------------- | ----------------------------------------- |
-| `navigation.ts`         | ⭐ 统一导航数据源，自动生成 nav 和 sidebar |
-| `config.mts` → `base`   | 站点基础路径，当前为 `/naoleiwiki/`       |
-| `config.mts` → `title`  | HTML `<title>` 标签文字                   |
-| `themeConfig.siteTitle` | 导航栏左侧显示的站点名称                  |
-| `themeConfig.search`    | 本地搜索及中文翻译                        |
-| `themeConfig.outline`   | 右侧「本页目录」层级                      |
-| `themeConfig.footer`    | 页脚文字                                  |
+| 文件 / 字段             | 说明                                                                    |
+| ----------------------- | ----------------------------------------------------------------------- |
+| `navigation.ts`         | ⭐ 统一导航数据源，自动生成 nav 和 sidebar                               |
+| `config.mts` → `base`   | 站点基础路径（自动判断：CF Pages → `/`，GitHub Pages → `/naoleiwiki/`） |
+| `config.mts` → `head`   | HTML `<head>` 注入（favicon、meta 标签等）                              |
+| `config.mts` → `title`  | HTML `<title>` 标签文字                                                 |
+| `theme/index.ts`        | 主题入口，含 `doc-before` 全局提示横幅                                  |
+| `theme/custom.css`      | 全局自定义样式                                                          |
+| `public/ico.jpg`        | 网站 favicon 图标                                                       |
+| `themeConfig.siteTitle` | 导航栏左侧显示的站点名称                                                |
+| `themeConfig.search`    | 本地搜索及中文翻译                                                      |
+| `themeConfig.outline`   | 右侧「本页目录」层级                                                    |
+| `themeConfig.footer`    | 页���文字                                                               |
 
 ---
 
@@ -281,22 +323,18 @@ docs/faq/install-errors.md    ← 新建此文件
 
 ### 方案二：Cloudflare Pages（推荐）
 
-#### 第一步：修改 `base` 路径
+#### 关于 `base` 路径
 
-Cloudflare Pages 部署到根域名（`*.pages.dev` 或自定义域名），需将 `config.mts` 中的 `base` 改为 `/`：
+项目已通过环境变量自动切换 `base`，无需手动修改：
 
 ```ts
-// docs/.vitepress/config.mts
-base: "/",  // Cloudflare Pages 使用根路径
+// docs/.vitepress/config.mts（已实现）
+const base = process.env.CF_PAGES ? "/" : "/naoleiwiki/";
 ```
 
-> ⚠️ 如需同时保留 GitHub Pages，可使用环境变量方案：
->
-> ```ts
-> base: process.env.CF_PAGES ? "/" : "/naoleiwiki/",
-> ```
+Cloudflare Pages 构建时会自动设置 `CF_PAGES` 环境变量，`base` 会自动切换为 `/`。
 
-#### 第二步：Cloudflare 控制台配置
+#### Cloudflare 控制台配置
 
 1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create application** → **Pages**
 2. 选择 **Connect to Git** → 连接 GitHub 仓库
@@ -312,14 +350,14 @@ base: "/",  // Cloudflare Pages 使用根路径
 
 1. 在 **Environment variables** 中添加：
 
-| 变量名         | 值   | 说明                        |
-| -------------- | ---- | --------------------------- |
-| `NODE_VERSION` | `20` | 指定 Node.js 版本           |
-| `CF_PAGES`     | `1`  | 可选，用于环境变量切换 base |
+| 变量名         | 值   | 说明                                       |
+| -------------- | ---- | ------------------------------------------ |
+| `NODE_VERSION` | `20` | 指定 Node.js 版本                          |
+| `CF_PAGES`     | `1`  | Cloudflare 自动提供，用于环境变量切换 base |
 
 1. 点击 **Save and Deploy**
 
-#### 第三步：自定义域名（可选）
+#### 自定义域名（可选）
 
 1. 部署成功后，Cloudflare 会分配 `项目名.pages.dev` 域名
 2. 如需自定义域名：Pages 项目 → **Custom domains** → **Set up a custom domain**
@@ -363,5 +401,7 @@ base: "/",  // Cloudflare Pages 使用根路径
 | 新增一个分区        | 创建目录 + `index.md` → 在 `navigation.ts` 追加 section          |
 | 修改导航栏/侧边栏   | 编辑 `navigation.ts`（顶栏 + 侧边栏自动同步）                    |
 | 修改样式            | 编辑 `docs/.vitepress/theme/custom.css`                          |
+| 修改全局提示横幅    | 编辑 `docs/.vitepress/theme/index.ts`（`doc-before` 插槽）       |
+| 更换网站 favicon    | 替换 `docs/public/ico.jpg`                                       |
 | 修改页脚/搜索等配置 | 编辑 `config.mts` → `themeConfig`                                |
 | 本地预览            | `npx vitepress dev docs`                                         |
