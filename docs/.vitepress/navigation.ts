@@ -79,6 +79,17 @@ export const sections: Section[] = [
     ],
   },
   {
+    text: "常见问题",
+    sidebarText: "常见问��",
+    icon: "❓",
+    link: "/faq/",
+    items: [
+      { text: "问题总览", link: "/faq/" },
+      { text: "酒馆使用问题", link: "/faq/st-usage" },
+      { text: "Discord 相关问题", link: "/faq/discord" },
+    ],
+  },
+  {
     text: "报错对照",
     sidebarText: "报错对照表",
     icon: "🚨",
@@ -97,17 +108,6 @@ export const sections: Section[] = [
       { text: "Claude Cookie反代", link: "/troubleshooting/claude" },
       { text: "DeepSeek", link: "/troubleshooting/deepseek" },
       { text: "各LLM通用", link: "/troubleshooting/general" },
-    ],
-  },
-  {
-    text: "常见问题",
-    sidebarText: "常见问题",
-    icon: "❓",
-    link: "/faq/",
-    items: [
-      { text: "问题总览", link: "/faq/" },
-      { text: "酒馆使用问题", link: "/faq/st-usage" },
-      { text: "Discord 相关问题", link: "/faq/discord" },
     ],
   },
   {

@@ -31,8 +31,8 @@ title: 首页
 <div class="quick-links">
 
 - [🍺 酒馆基础](/st-basics/)
-- [🚨 报错对照表](/troubleshooting/)
 - [❓ 常见问题](/faq/)
+- [🚨 报错对照表](/troubleshooting/)
 - [🍼 新手教程](/beginner-guide/)
 - [🙏 致谢](/credits/)
 
