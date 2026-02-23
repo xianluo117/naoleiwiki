@@ -1,4 +1,4 @@
-# 类脑ΟΔΥΣΣΕΙΑ · 社区知识库
+# 脑类自研 · 常见答疑知识库
 
 本仓库使用 [VitePress](https://vitepress.dev/) 构建，支持 Cloudflare Pages / GitHub Pages 双平台部署。
 

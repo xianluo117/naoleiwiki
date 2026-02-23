@@ -10,7 +10,7 @@ function layout(title: string, body: string): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} - 类脑社区知识库</title>
+  <title>${title} - 脑类自研 · 常见答疑知识库</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -123,7 +123,7 @@ export function loginPage(loginUrl: string): string {
     "登录验证",
     `
     <div class="logo">💡</div>
-    <h1>类脑ΟΔΥΣΣΕΙΑ · 社区知识库</h1>
+    <h1>脑类自研 · 常见答疑知识库</h1>
     <p class="subtitle">
       本知识库仅对社区成员开放<br>
       请使用 Discord 账号登录，验证您的社区成员身份
@@ -157,7 +157,7 @@ export function notInGuildPage(discordInviteUrl?: string): string {
     <div class="error-icon">🚫</div>
     <h1>您尚未加入社区服务器</h1>
     <p class="subtitle">
-      本知识库仅对 类脑ΟΔΥΣΣΕΙΑ Discord 服务器的成员开放。<br>
+      本知识库仅对 脑类自研 Discord 服务器的成员开放。<br>
       请先加入我们的 Discord 服务器，然后重新登录。
     </p>
     ${inviteButton}

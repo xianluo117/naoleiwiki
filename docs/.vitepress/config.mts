@@ -37,8 +37,8 @@ function zhTokenizer(text: string | null | undefined): string[] {
 
 export default defineConfig({
   base,
-  title: "类脑社区知识库",
-  description: "类脑ΟΔΥΣΣΕΙΑ 社区知识库 - 面向创作者与技术探索者的中文知识库",
+  title: "脑类自研 · 常见答疑知识库",
+  description: "脑类自研 · 常见答疑知识库 - 面向创作者与技术探索者的中文知识库",
   lang: "zh-CN",
   cleanUrls: false,
   lastUpdated: true,
@@ -54,7 +54,7 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    siteTitle: "类脑ΟΔΥΣΣΕΙΑ · 社区知识库",
+    siteTitle: "脑类自研 · 常见答疑知识库",
 
     search: {
       provider: "local",
@@ -110,7 +110,7 @@ export default defineConfig({
     darkModeSwitchTitle: "切换主题",
 
     footer: {
-      message: "类脑ΟΔΥΣΣΕΙΑ · SillyTavern 中文 Discord 社区",
+      message: "脑类自研 · SillyTavern 中文 Discord 社区",
       copyright: "Copyright © 2026 LeiNao Community",
     },
   },

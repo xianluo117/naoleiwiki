@@ -1,6 +1,6 @@
 # Discord OAuth2 认证部署指南
 
-本文档详细说明如何为类脑社区知识库配置 Discord OAuth2 全站认证。
+本文档详细说明如何为脑类自研 · 常见答疑知识库配置 Discord OAuth2 全站认证。
 
 ---
 

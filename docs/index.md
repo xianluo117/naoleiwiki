@@ -3,9 +3,9 @@ layout: doc
 title: 首页
 ---
 
-# 👋 欢迎来到类脑ΟΔΥΣΣΕΙΑ
+# 👋 欢迎来到脑类自研
 
-类脑ΟΔΥΣΣΕΙΑ 是 **SillyTavern（酒馆）是一个中文 Discord 交流社区**
+脑类自研 是 **SillyTavern（酒馆）中文 Discord 交流社区**
 
 ::: tip 💡 第一次来？
 建议先查看 [酒馆基础](/st-basics/)，了解 SillyTavern 的基本知识，然后去各个分区探索你感兴趣的内容！
