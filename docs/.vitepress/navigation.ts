@@ -122,6 +122,13 @@ export const sections: Section[] = [
     ],
   },
   {
+    text: "作品自建库",
+    sidebarText: "作品自建库",
+    icon: "📚",
+    link: "/works/",
+    items: [{ text: "作品自建库", link: "/works/" }],
+  },
+  {
     text: "致谢",
     icon: "🙏",
     link: "/credits/",
