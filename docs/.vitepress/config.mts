@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitepress";
 import { generateNav, generateSidebar } from "./navigation";
 
@@ -6,7 +9,7 @@ const base = process.env.CF_PAGES ? "/" : "/naoleiwiki/";
 
 /**
  * 兼顾中文与英文的简易分词：
- * - 中文：按单字 + 邻接双字切分（提升“删除”这类词的命中率）
+ * - 中文：按邻接双字切分（降低单字误匹配）
  * - 英文/数字：按连续词切分
  */
 function zhTokenizer(text: string | null | undefined): string[] {
@@ -23,10 +26,9 @@ function zhTokenizer(text: string | null | undefined): string[] {
     tokens.add(word);
   }
 
-  // 中文按字切分，并补充双字 token
+  // 中文按双字切分（避免单字命中导致误匹配）
   const cjkChars = normalized.match(/[\u4e00-\u9fff]/g) ?? [];
   for (let i = 0; i < cjkChars.length; i++) {
-    tokens.add(cjkChars[i]);
     if (i < cjkChars.length - 1) {
       tokens.add(`${cjkChars[i]}${cjkChars[i + 1]}`);
     }
@@ -35,7 +37,45 @@ function zhTokenizer(text: string | null | undefined): string[] {
   return [...tokens];
 }
 
+const miniSearchOptions = {
+  tokenize: zhTokenizer,
+} as unknown as { tokenize: typeof zhTokenizer };
+
 export default defineConfig({
+  buildEnd: async () => {
+    try {
+      const configDir = path.dirname(fileURLToPath(import.meta.url));
+      const distDir = path.resolve(configDir, "dist");
+      const chunksDir = path.join(distDir, "assets", "chunks");
+
+      if (!fs.existsSync(chunksDir)) {
+        return;
+      }
+
+      const indexFile = fs
+        .readdirSync(chunksDir)
+        .find(
+          (file) =>
+            file.startsWith("@localSearchIndexroot") && file.endsWith(".js"),
+        );
+
+      if (!indexFile) {
+        return;
+      }
+
+      const indexPath = path.join(chunksDir, indexFile);
+      const content = fs.readFileSync(indexPath, "utf-8");
+      const match = content.match(/const i='([\s\S]*?)';export/);
+      if (!match) {
+        return;
+      }
+
+      const outputPath = path.join(distDir, "local-search-index.json");
+      fs.writeFileSync(outputPath, match[1]);
+    } catch (error) {
+      console.warn("[search-index] buildEnd failed:", error);
+    }
+  },
   base,
   title: "脑类自研 · 常见答疑知识库",
   description: "脑类自研 · 常见答疑知识库 - 面向创作者与技术探索者的中文知识库",
@@ -60,9 +100,7 @@ export default defineConfig({
       provider: "local",
       options: {
         miniSearch: {
-          options: {
-            tokenize: zhTokenizer,
-          },
+          options: miniSearchOptions,
           searchOptions: {
             prefix: true,
             fuzzy: 0,

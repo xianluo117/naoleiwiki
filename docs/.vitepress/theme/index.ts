@@ -1,6 +1,7 @@
 import DefaultTheme from "vitepress/theme";
 import { h } from "vue";
 import "./custom.css";
+import SearchPriority from "./search-priority.ts";
 
 export default {
   extends: DefaultTheme,
@@ -19,6 +20,7 @@ export default {
             "答疑区",
           ),
         ]),
+      "layout-bottom": () => h(SearchPriority),
     });
   },
 };

@@ -275,6 +275,33 @@ docs/faq/install-errors.md    ← 新建此文件
 返回首页 / 相关页面链接
 ```
 
+---
+
+## ❓ 酒馆使用问题：聊天记录超过一定楼层无法保存
+
+当聊天记录楼层太多时，保存可能失败。通常是反向代理的请求体大小/超时时间限制导致上传被中断。
+
+**解决方案（Nginx）：**
+
+1. 打开 Nginx 配置文件（通常在 `/etc/nginx/nginx.conf` 或 `sites-enabled` 中对应站点文件）。
+2. 在对应的 `server` 或 `location` 块内加入以下配置（建议上限 ≥ 10MB，并延长超时）：
+
+```nginx
+client_max_body_size 10m;
+client_header_timeout 2m;
+client_body_timeout 2m;
+proxy_connect_timeout 2m;
+proxy_read_timeout 2m;
+proxy_send_timeout 2m;
+```
+
+1. 语法检查并重启：
+
+```bash
+nginx -t
+systemctl restart nginx
+```
+
 ### 链接写法
 
 ```markdown
@@ -306,7 +333,7 @@ docs/faq/install-errors.md    ← 新建此文件
 | `themeConfig.siteTitle` | 导航栏左侧显示的站点名称                                                |
 | `themeConfig.search`    | 本地搜索及中文翻译                                                      |
 | `themeConfig.outline`   | 右侧「本页目录」层级                                                    |
-| `themeConfig.footer`    | 页���文字                                                               |
+| `themeConfig.footer`    | 页脚文字                                                                |
 
 ---
 

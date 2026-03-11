@@ -13,7 +13,7 @@ import { verifyJWT } from "./lib/jwt";
 import type { Env } from "./types";
 
 /** 不需要认证的路径前缀 */
-const PUBLIC_PATH_PREFIXES = ["/api/auth/"];
+const PUBLIC_PATH_PREFIXES = ["/api/auth/", "/api/search"];
 
 /** 不需要认证的静态资源扩展名 */
 const STATIC_EXTENSIONS = [
@@ -47,6 +47,10 @@ function isPublicPath(pathname: string): boolean {
   // 静态资源
   const lowerPath = pathname.toLowerCase();
   if (STATIC_EXTENSIONS.some((ext) => lowerPath.endsWith(ext))) {
+    return true;
+  }
+
+  if (pathname === "/local-search-index.json") {
     return true;
   }
 
