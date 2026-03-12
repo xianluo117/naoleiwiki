@@ -17,7 +17,10 @@ const safeDecode = (value: string) => {
 
 const normalizePath = (value: string) => {
   const cleaned = safeDecode(value).split("#")[0].split("?")[0];
-  return cleaned.replace(/\/index\.html$/, "").replace(/\/$/, "");
+  return cleaned
+    .replace(/\/index\.html$/, "")
+    .replace(/\.html$/, "")
+    .replace(/\/$/, "");
 };
 
 const getCurrentPath = () => normalizePath(window.location.pathname);
@@ -103,20 +106,20 @@ const prioritizeListItems = (list: HTMLUListElement, currentPath: string) => {
     }
 
     const path = getLinkPath(link);
-    if (path === currentPath) {
-      currentItems.push(item);
+    if (isRecentFaqPath(path)) {
+      recentItems.push(item);
       continue;
     }
 
-    if (isRecentFaqPath(path)) {
-      recentItems.push(item);
+    if (path === currentPath) {
+      currentItems.push(item);
       continue;
     }
 
     otherItems.push(item);
   }
 
-  for (const item of [...currentItems, ...recentItems, ...otherItems]) {
+  for (const item of [...recentItems, ...currentItems, ...otherItems]) {
     list.appendChild(item);
   }
 };
@@ -149,6 +152,33 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     let observer: MutationObserver | null = null;
+    let isApplyingPriority = false;
+    let scheduled = false;
+
+    const runPriorityUpdate = () => {
+      if (isApplyingPriority) {
+        return;
+      }
+
+      isApplyingPriority = true;
+      try {
+        prioritizeCurrentPage();
+      } finally {
+        isApplyingPriority = false;
+      }
+    };
+
+    const schedulePriorityUpdate = () => {
+      if (scheduled) {
+        return;
+      }
+
+      scheduled = true;
+      requestAnimationFrame(() => {
+        scheduled = false;
+        runPriorityUpdate();
+      });
+    };
 
     const installObserver = () => {
       if (observer) {
@@ -156,7 +186,10 @@ export default defineComponent({
       }
 
       observer = new MutationObserver(() => {
-        prioritizeCurrentPage();
+        if (isApplyingPriority) {
+          return;
+        }
+        schedulePriorityUpdate();
       });
 
       observer.observe(document.body, {
@@ -164,7 +197,7 @@ export default defineComponent({
         subtree: true,
       });
 
-      prioritizeCurrentPage();
+      runPriorityUpdate();
     };
 
     onMounted(() => {
@@ -178,7 +211,7 @@ export default defineComponent({
       () => route.path,
       async () => {
         await nextTick();
-        prioritizeCurrentPage();
+        schedulePriorityUpdate();
       },
     );
 
