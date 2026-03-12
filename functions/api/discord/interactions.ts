@@ -33,6 +33,15 @@ const stripHtml = (value: string) =>
     .replace(/\s+/g, " ")
     .trim();
 
+const normalizeSnippet = (value: string) =>
+  value
+    .replace(/\\n/g, "\n")
+    .replace(/\\r/g, "\r")
+    .replace(/\r\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .replace(/[ \t]{2,}/g, " ")
+    .trim();
+
 const escapeRegExp = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -86,7 +95,10 @@ const fetchResultContent = async (url: string) => {
 
 const buildResultLines = (results: SearchResult[]) =>
   results
-    .map((item, index) => `${index + 1}. ${item.title}\n${item.snippet}`)
+    .map(
+      (item, index) =>
+        `${index + 1}. ${item.title}\n${normalizeSnippet(item.snippet)}`,
+    )
     .join("\n\n");
 
 const limitMessage = (value: string) =>
