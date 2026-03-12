@@ -37,11 +37,11 @@
 
 在 Cloudflare Pages 项目 → **Settings** → **Environment variables** 中添加：
 
-| 变量名               | 说明                |
-| -------------------- | ------------------- |
-| `DISCORD_PUBLIC_KEY` | 用于验证交互签名    |
-| `DISCORD_BOT_TOKEN`  | 用于注册 Slash 命令 |
-| `DISCORD_APP_ID`     | 用于注册 Slash 命令 |
+| 变量名               | 说明                                                                   |
+| -------------------- | ---------------------------------------------------------------------- |
+| `DISCORD_PUBLIC_KEY` | 用于验证交互签名                                                       |
+| `DISCORD_BOT_TOKEN`  | 用于注册 Slash 命令                                                    |
+| `DISCORD_APP_ID`     | 用于注册 Slash 命令（可选，缺省时会自动使用 `DISCORD_CLIENT_ID` 代替） |
 
 ---
 
@@ -64,7 +64,7 @@
 | -------------------- | ------------------- | ------------ |
 | `DISCORD_PUBLIC_KEY` | 从 Discord 应用复制 | 交互签名校验 |
 | `DISCORD_BOT_TOKEN`  | 从 Discord 应用复制 | 注册命令     |
-| `DISCORD_APP_ID`     | 应用 ID             | 注册命令     |
+| `DISCORD_APP_ID`     | 应用 ID（可选）     | 注册命令     |
 
 1. 保存并部署。部署成功后即可访问 `/api/discord/commands` 与 `/api/discord/interactions`。
 
