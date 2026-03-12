@@ -15,6 +15,7 @@
 .
 ├─ README.md                          # 仓库说明 & 编写指南（不参与站点构建）
 ├─ SETUP-AUTH.md                      # Discord OAuth 认证配置指南
+├─ DISCORD-BOT.md                     # Discord Slash 命令配置指南
 ├─ package.json
 ├─ .gitignore
 ├─ .github/workflows/deploy.yml       # GitHub Actions 自动部署
@@ -78,6 +79,7 @@
 - **导航配置统一维护** — `docs/.vitepress/navigation.ts` 是顶栏和侧边栏的唯一数据源。
 - `config.mts` 通过 `generateNav()` 和 `generateSidebar()` 自动生成导航结构，无需手动同步。
 - `functions/` 目录为 Cloudflare Pages Functions，实现 Discord OAuth 登录鉴权。
+- `functions/api/discord/` 提供 Discord Slash 命令注册与交互回调（/wenti-sousuo）。
 - `docs/public/` 存放静态资源（如 favicon），构建时会原样复制到输出根目录。
 
 ---

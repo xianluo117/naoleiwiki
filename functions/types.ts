@@ -17,6 +17,12 @@ export interface Env {
   JWT_SECRET: string;
   /** OAuth2 state 加密密钥（至少 16 字符随机字符串） */
   STATE_SECRET: string;
+  /** Discord Bot 公钥（用于验证交互签名） */
+  DISCORD_PUBLIC_KEY: string;
+  /** Discord Bot Token（用于注册 Slash 命令） */
+  DISCORD_BOT_TOKEN: string;
+  /** Discord 应用/客户端 ID（用于注册 Slash 命令） */
+  DISCORD_APP_ID: string;
 }
 
 /** Discord OAuth2 Token 响应 */

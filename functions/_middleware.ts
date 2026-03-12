@@ -13,7 +13,7 @@ import { verifyJWT } from "./lib/jwt";
 import type { Env } from "./types";
 
 /** 不需要认证的路径前缀 */
-const PUBLIC_PATH_PREFIXES = ["/api/auth/", "/api/search"];
+const PUBLIC_PATH_PREFIXES = ["/api/auth/", "/api/search", "/api/discord/"];
 
 /** 不需要认证的静态资源扩展名 */
 const STATIC_EXTENSIONS = [
