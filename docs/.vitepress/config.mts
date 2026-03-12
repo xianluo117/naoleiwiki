@@ -42,40 +42,6 @@ const miniSearchOptions = {
 } as unknown as { tokenize: typeof zhTokenizer };
 
 export default defineConfig({
-  buildEnd: async () => {
-    try {
-      const configDir = path.dirname(fileURLToPath(import.meta.url));
-      const distDir = path.resolve(configDir, "dist");
-      const chunksDir = path.join(distDir, "assets", "chunks");
-
-      if (!fs.existsSync(chunksDir)) {
-        return;
-      }
-
-      const indexFile = fs
-        .readdirSync(chunksDir)
-        .find(
-          (file) =>
-            file.startsWith("@localSearchIndexroot") && file.endsWith(".js"),
-        );
-
-      if (!indexFile) {
-        return;
-      }
-
-      const indexPath = path.join(chunksDir, indexFile);
-      const content = fs.readFileSync(indexPath, "utf-8");
-      const match = content.match(/const i='([\s\S]*?)';export/);
-      if (!match) {
-        return;
-      }
-
-      const outputPath = path.join(distDir, "local-search-index.json");
-      fs.writeFileSync(outputPath, match[1]);
-    } catch (error) {
-      console.warn("[search-index] buildEnd failed:", error);
-    }
-  },
   base,
   title: "脑类自研 · 常见答疑知识库",
   description: "脑类自研 · 常见答疑知识库 - 面向创作者与技术探索者的中文知识库",
@@ -93,6 +59,49 @@ export default defineConfig({
     ],
   ],
 
+  vite: {
+    plugins: [
+      {
+        name: "export-local-search-index",
+        apply: "build",
+        closeBundle() {
+          try {
+            const configDir = path.dirname(fileURLToPath(import.meta.url));
+            const distDir = path.resolve(configDir, "dist");
+            const chunksDir = path.join(distDir, "assets", "chunks");
+
+            if (!fs.existsSync(chunksDir)) {
+              return;
+            }
+
+            const indexFile = fs
+              .readdirSync(chunksDir)
+              .find(
+                (file) =>
+                  file.startsWith("@localSearchIndexroot") &&
+                  file.endsWith(".js"),
+              );
+
+            if (!indexFile) {
+              return;
+            }
+
+            const indexPath = path.join(chunksDir, indexFile);
+            const content = fs.readFileSync(indexPath, "utf-8");
+            const match = content.match(/const i='([\s\S]*?)';export/);
+            if (!match) {
+              return;
+            }
+
+            const outputPath = path.join(distDir, "local-search-index.json");
+            fs.writeFileSync(outputPath, match[1]);
+          } catch (error) {
+            console.warn("[search-index] export failed:", error);
+          }
+        },
+      },
+    ],
+  },
   themeConfig: {
     siteTitle: "脑类自研 · 常见答疑知识库",
 

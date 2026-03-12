@@ -68,6 +68,13 @@
 
 1. 保存并部署。部署成功后即可访问 `/api/discord/commands` 与 `/api/discord/interactions`。
 
+> ⚠️ 注意：首次部署后请等待构建完成，然后确认以下地址可访问：
+>
+> - `https://<你的域名>/local-search-index.json`
+> - `https://<你的域名>/api/search?q=测试`
+>
+> 若 `local-search-index.json` 为 404，说明索引未导出，搜索命令将返回“服务暂时不可用”。
+
 ## 3. 注册 Slash 命令
 
 部署后请求以下接口注册命令：
