@@ -8,7 +8,10 @@ type SearchItem = {
 
 type IndexPayload = {
   documentIds: Record<string, string>;
-  storedFields: Record<string, { title?: string; titles?: string[] }>;
+  storedFields: Record<
+    string,
+    { title?: string; titles?: string[]; text?: string }
+  >;
 };
 
 const worksMatcher = /\/works(?:\/|$)/;
@@ -21,12 +24,8 @@ const stripHtml = (value: string) =>
     .replace(/\s+/g, " ")
     .trim();
 
-const buildSnippet = (
-  titleParts: string[],
-  fallback: string,
-  maxLength = 200,
-) => {
-  const combined = titleParts.length > 0 ? titleParts.join(" / ") : fallback;
+const buildSnippet = (content: string, fallback: string, maxLength = 200) => {
+  const combined = content || fallback;
   const clean = stripHtml(combined);
   if (clean.length <= maxLength) {
     return clean;
@@ -79,8 +78,8 @@ export const onRequestGet: PagesFunction = async (context) => {
     const indexData = JSON.parse(indexJson) as IndexPayload;
 
     const miniSearch = MiniSearch.loadJSON(indexJson, {
-      fields: ["title", "titles"],
-      storeFields: ["title", "titles"],
+      fields: ["title", "titles", "text"],
+      storeFields: ["title", "titles", "text"],
     });
 
     const rawResults = miniSearch.search(query, { prefix: true, fuzzy: 0 });
@@ -97,8 +96,8 @@ export const onRequestGet: PagesFunction = async (context) => {
 
       const stored = indexData.storedFields?.[id];
       const title = stored?.title || result.title || "";
-      const titles = (stored?.titles || result.titles || []) as string[];
-      const snippet = buildSnippet(titles, title);
+      const text = stored?.text || result.text || "";
+      const snippet = buildSnippet(text, title);
       const url = buildUrl(baseUrl, rawPath);
 
       results.push({ title, url, snippet });
