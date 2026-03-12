@@ -75,18 +75,51 @@ const ensureDetailedList = (container: HTMLElement) => {
     return;
   }
 
-  if (
-    !toggleButton.classList.contains("detailed-list") &&
-    container.getAttribute(detailedDefaultAttribute) !== "true"
-  ) {
-    toggleButton.click();
+  if (container.getAttribute(detailedDefaultAttribute) !== "true") {
     container.setAttribute(detailedDefaultAttribute, "true");
   }
 
   updateToggleButtonLabel(toggleButton);
 };
 
-const prioritizeListItems = (list: HTMLUListElement, currentPath: string) => {
+const MARKER_CLASS = "search-priority-badge";
+
+const applyPriorityBadge = (
+  item: HTMLLIElement,
+  label: string,
+  priority: "recent" | "current",
+) => {
+  const existing = item.querySelector<HTMLElement>(`.${MARKER_CLASS}`);
+  if (existing) {
+    existing.textContent = label;
+    existing.dataset.priority = priority;
+    return;
+  }
+
+  const badge = document.createElement("span");
+  badge.className = MARKER_CLASS;
+  badge.dataset.priority = priority;
+  badge.textContent = label;
+
+  const titleContainer = item.querySelector<HTMLElement>(".titles");
+  if (titleContainer) {
+    titleContainer.appendChild(badge);
+    return;
+  }
+
+  const link = item.querySelector<HTMLElement>("a[href]");
+  if (link) {
+    link.appendChild(badge);
+  }
+};
+
+const clearPriorityBadges = (list: HTMLUListElement) => {
+  for (const badge of list.querySelectorAll(`.${MARKER_CLASS}`)) {
+    badge.remove();
+  }
+};
+
+const markPriorityItems = (list: HTMLUListElement, currentPath: string) => {
   const items = Array.from(list.querySelectorAll<HTMLLIElement>("li")).filter(
     (item) => item.querySelector("a[href]"),
   );
@@ -95,9 +128,7 @@ const prioritizeListItems = (list: HTMLUListElement, currentPath: string) => {
     return;
   }
 
-  const currentItems: HTMLLIElement[] = [];
-  const recentItems: HTMLLIElement[] = [];
-  const otherItems: HTMLLIElement[] = [];
+  clearPriorityBadges(list);
 
   for (const item of items) {
     const link = item.querySelector<HTMLAnchorElement>("a[href]");
@@ -107,20 +138,13 @@ const prioritizeListItems = (list: HTMLUListElement, currentPath: string) => {
 
     const path = getLinkPath(link);
     if (isRecentFaqPath(path)) {
-      recentItems.push(item);
+      applyPriorityBadge(item, "近期常见", "recent");
       continue;
     }
 
     if (path === currentPath) {
-      currentItems.push(item);
-      continue;
+      applyPriorityBadge(item, "当前页", "current");
     }
-
-    otherItems.push(item);
-  }
-
-  for (const item of [...recentItems, ...currentItems, ...otherItems]) {
-    list.appendChild(item);
   }
 };
 
@@ -141,8 +165,7 @@ const prioritizeCurrentPage = () => {
     );
 
     for (const list of lists) {
-      filterWorksResults(list, currentPath);
-      prioritizeListItems(list, currentPath);
+      markPriorityItems(list, currentPath);
     }
   }
 };

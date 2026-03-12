@@ -39,7 +39,8 @@ function zhTokenizer(text: string | null | undefined): string[] {
 
 const miniSearchOptions = {
   tokenize: zhTokenizer,
-} as unknown as { tokenize: typeof zhTokenizer };
+  storeFields: ["title", "titles", "text"],
+} as unknown as Record<string, unknown>;
 
 export default defineConfig({
   base,

@@ -73,7 +73,10 @@ const fetchResultContent = async (url: string) => {
     }
     const html = await response.text();
     if (anchor) {
-      return extractSectionText(html, anchor);
+      const section = extractSectionText(html, anchor);
+      if (section) {
+        return section;
+      }
     }
     return extractPageSummary(html);
   } catch {
@@ -137,7 +140,19 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     const payload = (await response.json()) as { results: SearchResult[] };
     const rawResults = payload.results || [];
-    const results = [...rawResults].sort((a, b) => {
+    const augmentedResults = [...rawResults];
+    const recentEntry = rawResults.find((item) =>
+      RECENT_PATH_MATCHER.test(item.url),
+    );
+    if (!recentEntry) {
+      const recentUrl = new URL("/faq/recent", request.url).toString();
+      augmentedResults.unshift({
+        title: "近期常见",
+        url: recentUrl,
+        snippet: "",
+      });
+    }
+    const results = [...augmentedResults].sort((a, b) => {
       const aRecent = RECENT_PATH_MATCHER.test(a.url) ? 0 : 1;
       const bRecent = RECENT_PATH_MATCHER.test(b.url) ? 0 : 1;
       return aRecent - bRecent;
