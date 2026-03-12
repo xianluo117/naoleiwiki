@@ -11,6 +11,9 @@ type SearchResult = {
   snippet: string;
 };
 
+const RECENT_PATH_MATCHER = /\/faq\/recent(?:\/|$|\.html#)/;
+const MAX_MESSAGE_LENGTH = 1800;
+
 const getOption = (
   interaction: DiscordInteraction,
   name: string,
@@ -22,13 +25,71 @@ const getOption = (
   return String(option.value);
 };
 
+const stripHtml = (value: string) =>
+  value
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const escapeRegExp = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const extractSectionText = (html: string, anchorId: string) => {
+  const escaped = escapeRegExp(anchorId);
+  const sectionRegex = new RegExp(
+    `<h[1-3][^>]*id="${escaped}"[^>]*>[\\s\\S]*?<\\/h[1-3]>([\\s\\S]*?)(?=<h[1-3][^>]*id=|$)`,
+    "i",
+  );
+  const match = html.match(sectionRegex);
+  if (!match) {
+    return "";
+  }
+  return stripHtml(match[1]);
+};
+
+const extractPageSummary = (html: string) => {
+  const docMatch = html.match(/<div class="vp-doc"[^>]*>([\s\S]*?)<\/div>/i);
+  if (!docMatch) {
+    return "";
+  }
+  const content = docMatch[1];
+  const pMatch = content.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+  if (!pMatch) {
+    return stripHtml(content);
+  }
+  return stripHtml(pMatch[1]);
+};
+
+const fetchResultContent = async (url: string) => {
+  try {
+    const target = new URL(url);
+    const anchor = target.hash ? decodeURIComponent(target.hash.slice(1)) : "";
+    target.hash = "";
+    const response = await fetch(target.toString());
+    if (!response.ok) {
+      return "";
+    }
+    const html = await response.text();
+    if (anchor) {
+      return extractSectionText(html, anchor);
+    }
+    return extractPageSummary(html);
+  } catch {
+    return "";
+  }
+};
+
 const buildResultLines = (results: SearchResult[]) =>
   results
-    .map(
-      (item, index) =>
-        `${index + 1}. ${item.title}\n${item.url}\n${item.snippet}`,
-    )
+    .map((item, index) => `${index + 1}. ${item.title}\n${item.snippet}`)
     .join("\n\n");
+
+const limitMessage = (value: string) =>
+  value.length > MAX_MESSAGE_LENGTH
+    ? `${value.slice(0, MAX_MESSAGE_LENGTH - 1)}…`
+    : value;
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
@@ -75,7 +136,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     const payload = (await response.json()) as { results: SearchResult[] };
-    const results = payload.results || [];
+    const rawResults = payload.results || [];
+    const results = [...rawResults].sort((a, b) => {
+      const aRecent = RECENT_PATH_MATCHER.test(a.url) ? 0 : 1;
+      const bRecent = RECENT_PATH_MATCHER.test(b.url) ? 0 : 1;
+      return aRecent - bRecent;
+    });
 
     if (results.length === 0) {
       return jsonResponse({
@@ -87,7 +153,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       });
     }
 
-    const content = buildResultLines(results);
+    const enrichedResults: SearchResult[] = [];
+    for (const result of results) {
+      const content = await fetchResultContent(result.url);
+      enrichedResults.push({
+        ...result,
+        snippet: content || result.snippet,
+      });
+    }
+
+    const content = limitMessage(buildResultLines(enrichedResults));
 
     return jsonResponse({
       type: 4,
