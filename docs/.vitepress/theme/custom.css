@@ -655,6 +655,40 @@ body {
 
 /* ======== 响应式优化 ======== */
 @media (max-width: 768px) {
+  .VPNav {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: var(--vp-c-bg) !important;
+  }
+
+  .VPNavBar,
+  .dark .VPNavBar {
+    background-color: rgba(255, 255, 255, 0.96) !important;
+  }
+
+  .dark .VPNavBar {
+    background-color: rgba(15, 23, 42, 0.96) !important;
+  }
+
+  .VPLocalNav {
+    position: fixed;
+    top: var(--vp-nav-height);
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background-color: var(--vp-c-bg) !important;
+    border-bottom: 1px solid var(--vp-c-divider);
+  }
+
+  .VPContent,
+  .VPDoc,
+  .VPHome {
+    padding-top: calc(var(--vp-nav-height) + 96px);
+  }
+
   .VPHero .name {
     font-size: 1.8rem !important;
   }

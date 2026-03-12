@@ -85,6 +85,7 @@ export const sections: Section[] = [
     link: "/faq/",
     items: [
       { text: "问题总览", link: "/faq/" },
+      { text: "近期常见", link: "/faq/recent" },
       { text: "酒馆使用问题", link: "/faq/st-usage" },
       { text: "Discord 相关问题", link: "/faq/discord" },
     ],

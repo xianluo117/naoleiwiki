@@ -34,6 +34,8 @@ const getLinkPath = (link: HTMLAnchorElement) => {
 
 const worksPathMatcher = /\/works(?:\/|$)/;
 const isWorksPath = (path: string) => worksPathMatcher.test(path);
+const recentFaqMatcher = /\/faq\/recent(?:\/|$)/;
+const isRecentFaqPath = (path: string) => recentFaqMatcher.test(path);
 
 const filterWorksResults = (list: HTMLUListElement, currentPath: string) => {
   if (isWorksPath(currentPath)) {
@@ -81,6 +83,44 @@ const ensureDetailedList = (container: HTMLElement) => {
   updateToggleButtonLabel(toggleButton);
 };
 
+const prioritizeListItems = (list: HTMLUListElement, currentPath: string) => {
+  const items = Array.from(list.querySelectorAll<HTMLLIElement>("li")).filter(
+    (item) => item.querySelector("a[href]"),
+  );
+
+  if (items.length === 0) {
+    return;
+  }
+
+  const currentItems: HTMLLIElement[] = [];
+  const recentItems: HTMLLIElement[] = [];
+  const otherItems: HTMLLIElement[] = [];
+
+  for (const item of items) {
+    const link = item.querySelector<HTMLAnchorElement>("a[href]");
+    if (!link) {
+      continue;
+    }
+
+    const path = getLinkPath(link);
+    if (path === currentPath) {
+      currentItems.push(item);
+      continue;
+    }
+
+    if (isRecentFaqPath(path)) {
+      recentItems.push(item);
+      continue;
+    }
+
+    otherItems.push(item);
+  }
+
+  for (const item of [...currentItems, ...recentItems, ...otherItems]) {
+    list.appendChild(item);
+  }
+};
+
 const prioritizeCurrentPage = () => {
   const containers = Array.from(
     document.querySelectorAll<HTMLElement>(".VPLocalSearchBox, .VPDocSearch"),
@@ -99,27 +139,7 @@ const prioritizeCurrentPage = () => {
 
     for (const list of lists) {
       filterWorksResults(list, currentPath);
-      const items = Array.from(
-        list.querySelectorAll<HTMLLIElement>("li"),
-      ).filter((item) => item.querySelector("a[href]"));
-
-      if (items.length === 0) {
-        continue;
-      }
-
-      const currentItem = items.find((item) => {
-        const link = item.querySelector<HTMLAnchorElement>("a[href]");
-        if (!link) {
-          return false;
-        }
-        return getLinkPath(link) === currentPath;
-      });
-
-      if (!currentItem || list.firstElementChild === currentItem) {
-        continue;
-      }
-
-      list.insertBefore(currentItem, list.firstElementChild);
+      prioritizeListItems(list, currentPath);
     }
   }
 };
