@@ -88,7 +88,7 @@ export default defineConfig({
 
             const indexPath = path.join(chunksDir, indexFile);
             const content = fs.readFileSync(indexPath, "utf-8");
-            const match = content.match(/const i='([\s\S]*?)';export/);
+            const match = content.match(/const\s+\w+\s*=\s*`([\s\S]*?)`;/);
             if (!match) {
               return;
             }
