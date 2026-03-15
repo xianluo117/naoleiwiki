@@ -9,7 +9,7 @@
 Gemini CLI2api（简称 CLI 反代或 CLI）是通过转发请求至 Gemini CLI 工具来使用 Gemini 模型的方式。
 
 目前类脑有一个 CLI 公益站，让用户方便地获取并上传凭证，免去了本地或服务器部署的步骤：
-- 🔗 [CLI 公益站](https://discord.com/channels/1134557553011998840/1410747429359325214)
+- 🔗 CLI 公益站:https://discord.com/channels/1134557553011998840/1410747429359325214
 
 ---
 
@@ -58,14 +58,14 @@ Gemini CLI2api（简称 CLI 反代或 CLI）是通过转发请求至 Gemini CLI 
 ### Q：怎么在本地或服务器部署 CLI 反代？
 
 **A**：
-- **PC 本地部署**：参考 [CLI 部署教程](https://discord.com/channels/1134557553011998840/1405524233823457300)
-- **手机部署**：参考 [手机 CLI 教程](https://discord.com/channels/1134557553011998840/1407111716713660426)
-- 若觉得本地部署麻烦，可直接使用 [CLI 公益站](https://discord.com/channels/1134557553011998840/1410747429359325214)
+- **PC 本地部署**：参考 CLI 部署教程:https://discord.com/channels/1134557553011998840/1405524233823457300
+- **手机部署**：参考 手机 CLI 教程:https://discord.com/channels/1134557553011998840/1407111716713660426
+- 若觉得本地部署麻烦，可直接使用 CLI 公益站:https://discord.com/channels/1134557553011998840/1410747429359325214
 
 ---
 
 ::: info 📖 相关阅读
-- [Gemini AI Studio API 报错](./gemini-api.md)
-- [Gemini Build2api 报错](./gemini-build.md)
-- [报错对照表总览](./)
+- Gemini AI Studio API 报错:./gemini-api.md
+- Gemini Build2api 报错:./gemini-build.md
+- 报错对照表总览:./
 :::

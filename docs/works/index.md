@@ -4,10 +4,10 @@
 
 作者常用问题自建库，目前为测试模块。后续想法是依照此知识库提供作品内部的快捷答疑。
 
-- [墨墨？](/works/%E5%A2%A8%E5%A2%A8%EF%BC%9F)
+- 墨墨？:/works/%E5%A2%A8%E5%A2%A8%EF%BC%9F
 
 ---
 
 ::: info 📝 持续更新中
-本页面正在建设中，欢迎通过 [GitHub](https://github.com/xianluo117/naoleiwiki) 或 Discord 答疑区提交你遇到的作品相关问题。
+本页面正在建设中，欢迎通过 GitHub:https://github.com/xianluo117/naoleiwiki 或 Discord 答疑区提交你遇到的作品相关问题。
 :::

@@ -15,5 +15,5 @@
 ---
 
 ::: tip 💬 想参与贡献？
-欢迎前往 [GitHub 仓库](https://github.com/xianluo117/naoleiwiki) 提交 Issue 或 Pull Request！
+欢迎前往 GitHub 仓库:https://github.com/xianluo117/naoleiwiki 提交 Issue 或 Pull Request！
 :::

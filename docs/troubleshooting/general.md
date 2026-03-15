@@ -30,16 +30,16 @@
 - 插件导致预设提示词结构被破坏
 
 **解决**：
-- 总结并隐藏前文（参见 [总结方法](/faq/st-usage#如何正确地总结之前的聊天记录-总结方法)）
+- 总结并隐藏前文（参见 总结方法:/faq/st-usage#如何正确地总结之前的聊天记录-总结方法）
 - 检查是否使用了会在预设体系之外插入提示词的插件（如各类「记忆表格」「知识库」等），将其关闭
 
 ---
 
 ::: info 📖 相关阅读
-- [Gemini AI Studio API 报错](./gemini-api.md)
-- [Gemini CLI2api 报错](./gemini-cli.md)
-- [Gemini Build2api 报错](./gemini-build.md)
-- [Claude 报错](./claude.md)
-- [DeepSeek 报错](./deepseek.md)
-- [报错对照表总览](./)
+- Gemini AI Studio API 报错:./gemini-api.md
+- Gemini CLI2api 报错:./gemini-cli.md
+- Gemini Build2api 报错:./gemini-build.md
+- Claude 报错:./claude.md
+- DeepSeek 报错:./deepseek.md
+- 报错对照表总览:./
 :::

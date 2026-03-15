@@ -7,7 +7,7 @@
 确保系统已安装以下软件：
 
 - **Git** — 大多数 Linux 发行版和 MacOS 已自带
-- **Node.js 18+** — 推荐通过 [nvm](https://github.com/nvm-sh/nvm) 安装
+- **Node.js 18+** — 推荐通过 nvm:https://github.com/nvm-sh/nvm 安装
 
 ```bash
 # 检查是否已安装
@@ -52,4 +52,4 @@ chmod +x start.sh
 
 ## 下一步
 
-安装完成后，了解如何 [更新和备份迁移](../update-backup.md)。
+安装完成后，了解如何 更新和备份迁移:../update-backup.md。

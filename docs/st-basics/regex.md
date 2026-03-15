@@ -88,6 +88,6 @@
 
 ::: info 📖 相关阅读
 
-- [斜杠命令](./slash-commands.md) — ST 常用斜杠命令
-- [酒馆使用问题](/faq/st-usage) — 预设参数和正则使用常见问题
+- 斜杠命令:./slash-commands.md — ST 常用斜杠命令
+- 酒馆使用问题:/faq/st-usage — 预设参数和正则使用常见问题
 :::

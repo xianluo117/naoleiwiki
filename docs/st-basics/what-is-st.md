@@ -32,6 +32,6 @@ iOS 系统**不支持**本地安装 SillyTavern，但可以通过网络连接到
 
 准备好了？选择你的系统开始安装吧：
 
-- [🪟 Windows 部署](./install/windows.md)
-- [🐧 Linux / MacOS 部署](./install/linux.md)
-- [📱 Android 部署](./install/android.md)
+- 🪟 Windows 部署:./install/windows.md
+- 🐧 Linux / MacOS 部署:./install/linux.md
+- 📱 Android 部署:./install/android.md

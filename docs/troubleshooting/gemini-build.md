@@ -15,7 +15,7 @@ AI Studio Build2api 反代（也叫 AI Studio 反代、Build 反代，简称 Bui
 :::
 
 目前最新最好用的 Build 反代本地部署应用：
-- 🔗 [Build 反代应用](https://discord.com/channels/1134557553011998840/1440552338824757280)
+- 🔗 Build 反代应用:https://discord.com/channels/1134557553011998840/1440552338824757280
 
 以下报错对照仅针对该应用。
 
@@ -59,7 +59,7 @@ AI Studio Build2api 反代（也叫 AI Studio 反代、Build 反代，简称 Bui
 
 **原因**：输入截断
 
-**解决**：查看酒馆终端，如果有关键词 `blockReason:`，则为输入截断，解决方法同 [AI Studio API 渠道的输入截断](./gemini-api.md#非流空回-输入截断)
+**解决**：查看酒馆终端，如果有关键词 `blockReason:`，则为输入截断，解决方法同 AI Studio API 渠道的输入截断:./gemini-api.md#非流空回-输入截断
 
 ---
 
@@ -92,7 +92,7 @@ AI Studio Build2api 反代（也叫 AI Studio 反代、Build 反代，简称 Bui
 ---
 
 ::: info 📖 相关阅读
-- [Gemini AI Studio API 报错](./gemini-api.md)
-- [Gemini CLI2api 报错](./gemini-cli.md)
-- [报错对照表总览](./)
+- Gemini AI Studio API 报错:./gemini-api.md
+- Gemini CLI2api 报错:./gemini-cli.md
+- 报错对照表总览:./
 :::

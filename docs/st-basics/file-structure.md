@@ -72,6 +72,6 @@ SillyTavern/
 
 ::: info 📖 相关阅读
 
-- [更新与备份迁移](./update-backup.md) — 如何备份和迁移数据
-- [聊天记录丢失找回](/faq/st-usage#聊天记录丢失了-怎么找回) — 通过 `backups/` 文件夹恢复
+- 更新与备份迁移:./update-backup.md — 如何备份和迁移数据
+- 聊天记录丢失找回:/faq/st-usage#聊天记录丢失了-怎么找回 — 通过 `backups/` 文件夹恢复
 :::

@@ -46,7 +46,7 @@
 
 使用搜索频道或外部搜索网页：
 
-🔗 [类脑资源搜索](https://odysseia-index.pages.dev/)
+🔗 类脑资源搜索:https://odysseia-index.pages.dev/
 
 这里的搜索功能比 Discord 自带的更好用。
 
@@ -69,5 +69,5 @@
 
 ::: info 📖 相关阅读
 
-- [酒馆使用问题](./st-usage.md) — 酒馆日常使用 FAQ
+- 酒馆使用问题:./st-usage.md — 酒馆日常使用 FAQ
 :::

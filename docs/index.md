@@ -10,7 +10,7 @@ title: 首页
 本站是**自主研发**的类脑答疑区常用合集，汇集了社区答疑中高频出现的问题、报错解决方案、常用工具与实用资源，帮助你快速定位并解决使用 SillyTavern 过程中遇到的各类问题。
 
 ::: tip 💡 第一次来？
-建议先查看 [酒馆基础](/st-basics/)，了解 SillyTavern 的基本知识，然后去各个分区探索你感兴趣的内容！
+建议先查看 酒馆基础:/st-basics/，了解 SillyTavern 的基本知识，然后去各个分区探索你感兴趣的内容！
 :::
 
 ## 关于类脑ΟΔΥΣΣΕΙΑ
@@ -34,10 +34,10 @@ title: 首页
 
 <div class="quick-links">
 
-- [🍺 酒馆基础](/st-basics/)
-- [❓ 常见问题](/faq/)
-- [🚨 报错对照表](/troubleshooting/)
-- [🔧 答疑常用工具](/tools/)
-- [致谢](/credits/)
+- 🍺 酒馆基础:/st-basics/
+- ❓ 常见问题:/faq/
+- 🚨 报错对照表:/troubleshooting/
+- 🔧 答疑常用工具:/tools/
+- 致谢:/credits/
 
 </div>

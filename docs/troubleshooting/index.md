@@ -17,7 +17,7 @@
 | 渠道                    | 说明                                                                                                                                                                                                                                       |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **AI Studio API**       | 免费用户仅能使用 Flash 模型                                                                                                                                                                                                                |
-| **Gemini CLI2api**      | 将请求转发至 Gemini CLI 工具，免费用户可用 2.5 Pro。免费用户也可通过特殊渠道开启 3.0 使用权限，但会导致总可用次数减少。具体操作见 [Discord 指引](https://discord.com/channels/1134557553011998840/1460270173549232251/1467523680287330482) |
+| **Gemini CLI2api**      | 将请求转发至 Gemini CLI 工具，免费用户可用 2.5 Pro。免费用户也可通过特殊渠道开启 3.0 使用权限，但会导致总可用次数减少。具体操作见 Discord 指引:https://discord.com/channels/1134557553011998840/1460270173549232251/1467523680287330482 |
 | **AI Studio Build2api** | 将请求转发至 AI Studio Build 页面，免费用户能用 3.0 Pro，但近期每日额度已削弱到约 10 次左右                                                                                                                                                |
 | **AntiGravity2api**     | AntiGravity（中文社区通称"反重力"）是谷歌的 AI 编程 IDE，通过将请求转发到反重力端点，免费用户也能用 3.0 Pro，额度每 5 小时重置。⚠️ 近期存在严重封号情况，请谨慎使用                                                                         |
 | **Google Vertex 2api**  | 通过 Google Vertex 渠道调用，通常需要先绑卡开通 Vertex。该渠道算力池近期较容易触发 429                                                                                                                                                     |
@@ -48,13 +48,13 @@
 
 <div class="custom-links">
 
-- [💎 Gemini — AI Studio API](./gemini-api.md) — API Key 直连的报错与解决
-- [🔧 Gemini — CLI2api](./gemini-cli.md) — CLI 反代相关报错
-- [🏗️ Gemini — Build2api](./gemini-build.md) — Build 反代相关报错
-- [🟠 Claude — Cookie 反代](./claude.md) — Cookie 反代相关报错
-- [🐋 DeepSeek](./deepseek.md) — DeepSeek 官方 API 报错
-- [🔁 反代（增加模型可使用次数）](/faq/reverse-proxy) — 反代基础知识与常用方案
-- [🌐 各 LLM 通用](./general.md) — 适用于所有模型的通用问题
+- 💎 Gemini — AI Studio API:./gemini-api.md — API Key 直连的报错与解决
+- 🔧 Gemini — CLI2api:./gemini-cli.md — CLI 反代相关报错
+- 🏗️ Gemini — Build2api:./gemini-build.md — Build 反代相关报错
+- 🟠 Claude — Cookie 反代:./claude.md — Cookie 反代相关报错
+- 🐋 DeepSeek:./deepseek.md — DeepSeek 官方 API 报错
+- 🔁 反代（增加模型可使用次数）:/faq/reverse-proxy — 反代基础知识与常用方案
+- 🌐 各 LLM 通用:./general.md — 适用于所有模型的通用问题
 
 </div>
 
