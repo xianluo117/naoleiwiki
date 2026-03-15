@@ -53,6 +53,7 @@
 - [🏗️ Gemini — Build2api](./gemini-build.md) — Build 反代相关报错
 - [🟠 Claude — Cookie 反代](./claude.md) — Cookie 反代相关报错
 - [🐋 DeepSeek](./deepseek.md) — DeepSeek 官方 API 报错
+- [🔁 反代（增加模型可使用次数）](/faq/reverse-proxy) — 反代基础知识与常用方案
 - [🌐 各 LLM 通用](./general.md) — 适用于所有模型的通用问题
 
 </div>

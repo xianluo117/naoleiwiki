@@ -87,8 +87,8 @@ export const sections: Section[] = [
       { text: "问题总览", link: "/faq/" },
       { text: "近期常见", link: "/faq/recent" },
       { text: "酒馆使用问题", link: "/faq/st-usage" },
+      { text: "反代（增加模型可使用次数）", link: "/faq/reverse-proxy" },
       { text: "Discord 相关问题", link: "/faq/discord" },
-      { text: "反代部署", link: "/faq/reverse-proxy" },
     ],
   },
   {
