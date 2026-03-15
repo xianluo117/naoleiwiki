@@ -155,14 +155,12 @@
 
 ### 「酒馆助手」怎么安装？
 
-🔗 酒馆助手文档:https://n0vi028.github.io/JS-Slash-Runner-Doc/
-
+🔗 酒馆助手文档:https://n0vi028.github.io/JS-Slash-Runner-Doc/  
 ---
 
 ### 「提示词模板」怎么安装？
 
-🔗 提示词模板 GitHub:https://github.com/zonde306/ST-Prompt-Template/
-
+🔗 提示词模板 GitHub:https://github.com/zonde306/ST-Prompt-Template/  
 ---
 
 ### 怎么下载 ST 使用的预设？
@@ -188,8 +186,7 @@
 
 **原因**：酒馆尝试使用的内存超过了最大分配限额。在 1.13.4 及更早版本中，由于漏洞会出现周期性内存使用尖峰
 
-**解决**：使用 KKTsN 制作的一键魔改脚本 **Foxium**：下载链接:https://discord.com/channels/1134557553011998840/1455186201228349586，可以提高内存上限并修复旧版本漏洞
-
+**解决**：使用 KKTsN 制作的一键魔改脚本 **Foxium**：下载链接:https://discord.com/channels/1134557553011998840/1455186201228349586，可以提高内存上限并修复旧版本漏洞  
 ::: tip 💡 备注
 对于 Termux 环境使用一键安装脚本的用户，Foxium 中修改内存上限的功能可能无效，但禁用周期检查来降低内存使用的方法依然有效。
 :::

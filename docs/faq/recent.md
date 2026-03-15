@@ -7,8 +7,7 @@
 
 ## 正文出现很多“极其”八股解决方案
 
-- 可使用 反极其正则:https://discord.com/channels/1134557553011998840/1460270173549232251/1478046698231038033 优化处理。
-
+- 可使用 反极其正则:https://discord.com/channels/1134557553011998840/1460270173549232251/1478046698231038033 优化处理。  
 ## MT 无法找到 Termux 文件夹
 
 **现象**：在 MT 管理器中选择本地存储时，会被系统自动跳转到文件管理器，导致无法直接挂载 Termux 内部文件夹，SFTP/强制映射也无效。
@@ -28,12 +27,11 @@
 
 **处理方式**：按照提示提交申诉表单。
 
-- 申诉链接：<https://forms.gle/hGzM9MEUv2azZsrb9>
-
+- 申诉链接：<https://forms.gle/hGzM9MEUv2azZsrb9>  
 ## 403 报错：permission denied on resource project userful-spark
 
 **报错内容**：`permission denied on resource project userful-spark` / `status: permission_denied`
 
 **解决方案**：完成 Google 年龄认证后再重试。
 
-- 认证入口：<https://myaccount.google.com/age-verification>
+- 认证入口：<https://myaccount.google.com/age-verification>  

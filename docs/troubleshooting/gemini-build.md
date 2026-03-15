@@ -15,8 +15,7 @@ AI Studio Build2api 反代（也叫 AI Studio 反代、Build 反代，简称 Bui
 :::
 
 目前最新最好用的 Build 反代本地部署应用：
-- 🔗 Build 反代应用:https://discord.com/channels/1134557553011998840/1440552338824757280
-
+- 🔗 Build 反代应用:https://discord.com/channels/1134557553011998840/1440552338824757280  
 以下报错对照仅针对该应用。
 
 ---

@@ -31,26 +31,23 @@
 ## Gemini CLI2api（CLI 反代）
 
 Gemini CLI2api（简称 CLI 反代或 CLI）是通过转发请求至 Gemini CLI 工具来使用 Gemini 模型的方式。
-自部署:https://discord.com/channels/1134557553011998840/1441059462608588851/1441059462608588851
 
+https://discord.com/channels/1134557553011998840/1441059462608588851/1441059462608588851  
 目前类脑有一个 CLI 公益站，让用户方便地获取并上传凭证，免去了本地或服务器部署的步骤：
 
-- 🔗 CLI 公益站:https://discord.com/channels/1134557553011998840/1410747429359325214
-
+🔗 CLI 公益站:https://discord.com/channels/1134557553011998840/1410747429359325214  
 ---
 
 ## 反重力 antigravity2api
 
 （包含 claude、gemini）
 但是存在封号风险。
-自部署:https://discord.com/channels/1134557553011998840/1441059462608588851/1441059462608588851
-
+https://discord.com/channels/1134557553011998840/1441059462608588851/1441059462608588851  
 ---
 
 ## Claude 官网 Cookie 反代
 
-ClewR：<https://discord.com/channels/1134557553011998840/1355042003007836241/1355042003007836241>
-
+ClewR：<https://discord.com/channels/1134557553011998840/1355042003007836241/1355042003007836241>  
 ---
 
 ## 快速链接

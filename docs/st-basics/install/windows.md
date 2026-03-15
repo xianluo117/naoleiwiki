@@ -8,9 +8,8 @@
 
 | 软件                | 下载地址                                        | 说明                          |
 | ------------------- | ----------------------------------------------- | ----------------------------- |
-| **Node.js**         | nodejs.org:https://nodejs.org/               | 选择 **LTS（长期支持）** 版本 |
-| **Git for Windows** | git-scm.com:https://git-scm.com/download/win | 用于下载和更新 ST             |
-
+| **Node.js**         | nodejs.org:https://nodejs.org/               | 选择 **LTS（长期支持）** 版本 |  
+| **Git for Windows** | git-scm.com:https://git-scm.com/download/win | 用于下载和更新 ST             |  
 ::: warning 系统要求
 Windows 7 及更早版本**无法安装**所需的 Node.js 版本，请使用 Windows 10 或更新系统。
 :::
@@ -30,7 +29,7 @@ Windows 7 及更早版本**无法安装**所需的 Node.js 版本，请使用 Wi
 ### 2. 克隆仓库
 
 ```bash
-git clone https://github.com/SillyTavern/SillyTavern -b release
+git clone https://github.com/SillyTavern/SillyTavern -b release  
 ```
 
 这将下载最新**稳定版**的 SillyTavern。
@@ -42,7 +41,7 @@ git clone 完成后，进入 `SillyTavern` 文件夹，双击 **`start.bat`**。
 Node.js 将自动安装所需依赖，稍等片刻后，ST 会在浏览器中自动打开。
 
 ::: info 首次启动
-首次启动可能需要较长时间来下载依赖，请耐心等待。如果浏览器没有自动打开，可以手动访问 `http://localhost:8000`。
+首次启动可能需要较长时间来下载依赖，请耐心等待。如果浏览器没有自动打开，可以手动访问 `http://localhost:8000`。  
 :::
 
 ## 下一步

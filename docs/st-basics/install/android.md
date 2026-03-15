@@ -11,7 +11,7 @@ Android 上安装 SillyTavern 的流程与 Linux 基本相同，通过 **Termux*
 社区提供了一键安装脚本，可以自动完成所有配置工作：
 
 ::: tip 一键脚本地址
-脚本可以在这里找到：Discord 频道:https://discord.com/channels/1134557553011998840/1463816776101007456/1463816776101007456
+脚本可以在这里找到：Discord 频道:https://discord.com/channels/1134557553011998840/1463816776101007456/1463816776101007456  
 :::
 
 使用一键脚本可以省去手动安装 Git、Node.js 等前置软件的步骤，适合不熟悉命令行的用户。
@@ -22,8 +22,7 @@ Android 上安装 SillyTavern 的流程与 Linux 基本相同，通过 **Termux*
 
 #### 1. 安装 Termux
 
-从 F-Droid:https://f-droid.org/packages/com.termux/ 下载安装 Termux。
-
+从 F-Droid:https://f-droid.org/packages/com.termux/ 下载安装 Termux。  
 ::: warning 注意
 **不要**从 Google Play 安装 Termux，Play 商店版本已过时且不再维护。
 :::
@@ -40,7 +39,7 @@ pkg install git nodejs
 #### 3. 克隆仓库
 
 ```bash
-git clone https://github.com/SillyTavern/SillyTavern -b release
+git clone https://github.com/SillyTavern/SillyTavern -b release  
 ```
 
 #### 4. 启动

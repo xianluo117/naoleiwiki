@@ -116,9 +116,8 @@
 
 **相关资源**：
 
-- 反代部署教程：CLI 部署:https://discord.com/channels/1134557553011998840/1405524233823457300 / Build 部署:https://discord.com/channels/1134557553011998840/1380129283430940712
-- 公益站点：CLI 公益站:https://discord.com/channels/1134557553011998840/1410747429359325214 / Build 公益站:https://discord.com/channels/1134557553011998840/1413552700070694953
-
+- 反代部署教程：CLI 部署:https://discord.com/channels/1134557553011998840/1405524233823457300 / Build 部署:https://discord.com/channels/1134557553011998840/1380129283430940712  
+- 公益站点：CLI 公益站:https://discord.com/channels/1134557553011998840/1410747429359325214 / Build 公益站:https://discord.com/channels/1134557553011998840/1413552700070694953  
 ---
 
 ## 流式输出截断

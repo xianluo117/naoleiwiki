@@ -46,8 +46,7 @@
 
 使用搜索频道或外部搜索网页：
 
-🔗 类脑资源搜索:https://odysseia-index.pages.dev/
-
+🔗 类脑资源搜索:https://odysseia-index.pages.dev/  
 这里的搜索功能比 Discord 自带的更好用。
 
 ---
